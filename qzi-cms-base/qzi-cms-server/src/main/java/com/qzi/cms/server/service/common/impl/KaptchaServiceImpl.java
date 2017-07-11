@@ -9,13 +9,13 @@ package com.qzi.cms.server.service.common.impl;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Service;
 
 import com.google.code.kaptcha.Producer;
@@ -55,7 +55,7 @@ public class KaptchaServiceImpl implements KaptchaService {
 	        baos = new ByteArrayOutputStream(); 
 	        ImageIO.write(bi, "jpg", baos);
 	        //将图片转换成base64编码字符串
-	        String strImg = new String(Base64.encodeBase64(baos.toByteArray(), false));
+	        String strImg = new String(Base64.getEncoder().encodeToString(baos.toByteArray()));
 	        //保存到redis中
 	        reidsService.putString(uuid, capText, 1800);
 	        //保存到返回对象

@@ -16,6 +16,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
 
+import com.qzi.cms.common.enums.StateEnum;
+import com.qzi.cms.common.po.UseBuildingPo;
 import com.qzi.cms.common.po.UseResidentAreaPo;
 import com.qzi.cms.common.po.UseResidentUserPo;
 import com.qzi.cms.common.resp.Paging;
@@ -27,6 +29,7 @@ import com.qzi.cms.common.vo.SysCityVo;
 import com.qzi.cms.common.vo.UseResidentAreaVo;
 import com.qzi.cms.server.mapper.SysCityMapper;
 import com.qzi.cms.server.mapper.SysUserMapper;
+import com.qzi.cms.server.mapper.UseBuildingMapper;
 import com.qzi.cms.server.mapper.UseResidentAreaMapper;
 import com.qzi.cms.server.mapper.UseResidentUserMapper;
 import com.qzi.cms.server.service.web.ResidentAreaService;
@@ -47,6 +50,8 @@ public class ResidentAreaServiceImpl implements ResidentAreaService {
 	private SysUserMapper userMapper;
 	@Resource
 	private UseResidentUserMapper residentUserMapper;
+	@Resource
+	private UseBuildingMapper buildMapper;
 
 	@Override
 	public List<UseResidentAreaVo> findAll(Paging paging) {
@@ -61,11 +66,22 @@ public class ResidentAreaServiceImpl implements ResidentAreaService {
 
 	@Override
 	public void add(UseResidentAreaVo residentAreaVo) throws Exception {
+		//保存小区信息
 		UseResidentAreaPo raPo = YBBeanUtils.copyProperties(residentAreaVo, UseResidentAreaPo.class);
 		raPo.setId(ToolUtils.getUUID());
 		raPo.setResidentNo(getResidentNo());
 		raPo.setCreateTime(new Date());
 		residentAreaMapper.insert(raPo);
+		//保存楼栋信息
+		for(int n=1;n<=residentAreaVo.getBuildingNum();n++){
+			UseBuildingPo buildPo = new UseBuildingPo();
+			buildPo.setId(ToolUtils.getUUID());
+			buildPo.setBuildingName(n+"栋");
+			buildPo.setBuildingNo(String.format("%02d", n));
+			buildPo.setResidentId(raPo.getId());
+			buildPo.setState(StateEnum.NORMAL.getCode());
+			buildMapper.insert(buildPo);
+		}
 	}
 
 	@Override

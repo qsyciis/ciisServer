@@ -34,6 +34,10 @@ public class UseResidentAreaPo {
 	 */
 	private String residentNo;
 	/**
+	 * 楼栋数量
+	 */
+	private int buildingNum;
+	/**
 	 * 省份
 	 */
 	private String province;
@@ -65,7 +69,35 @@ public class UseResidentAreaPo {
 	 * 创建时间
 	 */
 	private Date createTime;
+	/**
+	 * 状态	
+	 */
+	private String state;
 	
+	/**
+	 * @return the state
+	 */
+	public String getState() {
+		return state;
+	}
+	/**
+	 * @param state the state to set
+	 */
+	public void setState(String state) {
+		this.state = state;
+	}
+	/**
+	 * @return the buildingNum
+	 */
+	public int getBuildingNum() {
+		return buildingNum;
+	}
+	/**
+	 * @param buildingNum the buildingNum to set
+	 */
+	public void setBuildingNum(int buildingNum) {
+		this.buildingNum = buildingNum;
+	}
 	/**
 	 * @return the createTime
 	 */

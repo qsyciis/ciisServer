@@ -9,10 +9,12 @@ package com.qzi.cms.server.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.session.RowBounds;
 
 import com.qzi.cms.common.po.UseResidentAreaPo;
+import com.qzi.cms.common.vo.TreeVo;
 import com.qzi.cms.common.vo.UseResidentAreaVo;
 import com.qzi.cms.server.base.BaseMapper;
 
@@ -42,5 +44,12 @@ public interface UseResidentAreaMapper extends BaseMapper<UseResidentAreaPo>{
 	 */
 	@Select("select max(residentNo) from use_resident_area")
 	public String findMaxResidentNo();
+
+	/**
+	 * @param id
+	 * @return
+	 */
+	@Select("SELECT ura.id id,ura.residentName value from use_resident_area ura,use_resident_user uru where ura.id = uru.residentId and uru.userId=#{userId} and ura.state='10'")
+	public List<TreeVo> findTree(@Param("userId") String id);
 	
 }
