@@ -14,6 +14,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.session.RowBounds;
 
 import com.qzi.cms.common.po.UseBuildingPo;
+import com.qzi.cms.common.vo.OptionVo;
 import com.qzi.cms.common.vo.UseBuildingVo;
 import com.qzi.cms.server.base.BaseMapper;
 
@@ -26,25 +27,32 @@ import com.qzi.cms.server.base.BaseMapper;
 public interface UseBuildingMapper extends BaseMapper<UseBuildingPo>{
 
 	/**
-	 * @param residentId
+	 * @param communityId
 	 * @param rwoBounds 
 	 * @return
 	 */
-	@Select("select * from use_building where residentId=#{residentId} order by buildingNo")
-	public List<UseBuildingVo> findBuilding(@Param("residentId") String residentId, RowBounds rwoBounds);
+	@Select("select * from use_building where communityId=#{communityId} order by buildingNo")
+	public List<UseBuildingVo> findBuilding(@Param("communityId") String communityId, RowBounds rwoBounds);
 
 	/**
-	 * @param residentId
+	 * @param communityId
 	 * @return
 	 */
-	@Select("select count(1) from use_building where residentId=#{residentId}")
-	public long findCount(@Param("residentId") String residentId);
+	@Select("select count(1) from use_building where communityId=#{communityId}")
+	public long findCount(@Param("communityId") String communityId);
 
 	/**
 	 * @param id
 	 * @return
 	 */
-	@Select("SELECT * from use_building where residentId=#{residentId} and state='10' ORDER BY buildingNo")
-	public List<UseBuildingPo> findByResidentId(@Param("residentId") String id);
+	@Select("SELECT * from use_building where communityId=#{communityId} and state='10' ORDER BY buildingNo")
+	public List<UseBuildingPo> findByCommunityId(@Param("communityId") String id);
+
+	/**
+	 * @param communityId
+	 * @return
+	 */
+	@Select("SELECT id value,buildingName name from use_building where communityId=#{communityId} and roomNumber>0 and state='10' ORDER BY buildingNo")
+	public List<OptionVo> findBuildings(@Param("communityId") String communityId);
 	
 }

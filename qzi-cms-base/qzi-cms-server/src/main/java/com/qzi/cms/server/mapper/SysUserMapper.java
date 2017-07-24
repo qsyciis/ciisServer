@@ -14,7 +14,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.session.RowBounds;
 
 import com.qzi.cms.common.po.SysUserPo;
-import com.qzi.cms.common.vo.ResidentAreaAdminVo;
+import com.qzi.cms.common.vo.CommunityAdminVo;
 import com.qzi.cms.common.vo.SysUserVo;
 import com.qzi.cms.server.base.BaseMapper;
 
@@ -58,10 +58,10 @@ public interface SysUserMapper extends BaseMapper<SysUserPo>{
 	public int findLoginName(@Param("ln") String loginName);
 
 	/**
-	 * @param residentId
+	 * @param communityId
 	 * @return
 	 */
-	@Select("SELECT su.userName,su.id userId,uru.userId is not null checked from sys_user su LEFT JOIN use_resident_user uru on su.id = uru.userId and uru.residentId=#{rid} where su.state='10'")
-	public List<ResidentAreaAdminVo> findAdmin(@Param("rid")String residentId);
+	@Select("SELECT su.userName,su.id userId,uru.userId is not null checked from sys_user su LEFT JOIN use_community_user uru on su.id = uru.userId and uru.communityId=#{cid} where su.state='10'")
+	public List<CommunityAdminVo> findAdmin(@Param("cid")String communityId);
 
 }

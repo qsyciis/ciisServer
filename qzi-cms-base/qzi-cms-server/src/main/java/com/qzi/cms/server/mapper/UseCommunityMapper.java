@@ -1,5 +1,5 @@
 /* 
- * 文件名：UseResidentAreaMapper.java  
+ * 文件名：UseCommunityMapper.java  
  * 版权：Copyright 2016-2017 炎宝网络科技  All Rights Reserved by
  * 修改人：邱深友  
  * 创建时间：2017年6月27日
@@ -13,9 +13,9 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.session.RowBounds;
 
-import com.qzi.cms.common.po.UseResidentAreaPo;
+import com.qzi.cms.common.po.UseCommunityPo;
 import com.qzi.cms.common.vo.TreeVo;
-import com.qzi.cms.common.vo.UseResidentAreaVo;
+import com.qzi.cms.common.vo.UseCommunityVo;
 import com.qzi.cms.server.base.BaseMapper;
 
 /**
@@ -24,32 +24,32 @@ import com.qzi.cms.server.base.BaseMapper;
  * @version v1.0
  * @date 2017年6月27日
  */
-public interface UseResidentAreaMapper extends BaseMapper<UseResidentAreaPo>{
+public interface UseCommunityMapper extends BaseMapper<UseCommunityPo>{
 
 	/**
 	 * @param rwoBounds
 	 * @return
 	 */
-	@Select("select * from use_resident_area order by createTime desc")
-	public List<UseResidentAreaVo> findAll(RowBounds rwoBounds);
+	@Select("select * from use_community order by createTime desc")
+	public List<UseCommunityVo> findAll(RowBounds rwoBounds);
 
 	/**
 	 * @return
 	 */
-	@Select("select count(1) from use_resident_area")
+	@Select("select count(1) from use_community")
 	public long findCount();
 
 	/**
 	 * @return
 	 */
-	@Select("select max(residentNo) from use_resident_area")
-	public String findMaxResidentNo();
+	@Select("select max(communityNo) from use_community")
+	public String findMaxCommunityNo();
 
 	/**
 	 * @param id
 	 * @return
 	 */
-	@Select("SELECT ura.id id,ura.residentName value from use_resident_area ura,use_resident_user uru where ura.id = uru.residentId and uru.userId=#{userId} and ura.state='10'")
+	@Select("SELECT uc.id id,uc.communityName value from use_community uc,use_community_user ucu where uc.id = ucu.communityId and ucu.userId=#{userId} and uc.state='10'")
 	public List<TreeVo> findTree(@Param("userId") String id);
 	
 }

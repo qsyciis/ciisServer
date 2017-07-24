@@ -38,7 +38,23 @@ public class UseRoomVo {
 	 * 状态
 	 */
 	private String state;
+	/**
+	 * 楼栋
+	 */
+	private String buildingName;
 	
+	/**
+	 * @return the buildingName
+	 */
+	public String getBuildingName() {
+		return buildingName;
+	}
+	/**
+	 * @param buildingName the buildingName to set
+	 */
+	public void setBuildingName(String buildingName) {
+		this.buildingName = buildingName;
+	}
 	/**
 	 * @return the unitName
 	 */

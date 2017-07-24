@@ -8,7 +8,6 @@
 package com.qzi.cms.web.controller;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,10 +20,8 @@ import com.qzi.cms.common.enums.RespCodeEnum;
 import com.qzi.cms.common.resp.Paging;
 import com.qzi.cms.common.resp.RespBody;
 import com.qzi.cms.common.util.LogUtils;
-import com.qzi.cms.common.vo.SysUserVo;
 import com.qzi.cms.common.vo.UseBuildingVo;
 import com.qzi.cms.server.service.web.BuildingService;
-import com.qzi.cms.server.service.web.UserService;
 
 /**
  * 楼栋控制器
@@ -36,21 +33,14 @@ import com.qzi.cms.server.service.web.UserService;
 @RequestMapping("/building")
 public class BuildingController {
 	@Resource
-	private UserService userService;
-	@Resource
-	private HttpServletRequest request;
-	@Resource
 	private BuildingService buildService;
 	
 	@GetMapping("/findTree")
 	public RespBody findTree(){
 		RespBody respBody = new RespBody();
 		try {
-			String token = request.getHeader("token");
-			//读取用户信息
-			SysUserVo userVo = userService.SysUserVo(token);
 			//查找数据并返回
-			respBody.add(RespCodeEnum.SUCCESS.getCode(), "获取用户小区信息成功",buildService.findTree(userVo.getId()));
+			respBody.add(RespCodeEnum.SUCCESS.getCode(), "获取用户小区信息成功",buildService.findTree());
 		} catch (Exception ex) {
 			respBody.add(RespCodeEnum.ERROR.getCode(), "获取用户小区信息异常");
 			LogUtils.error("获取用户小区信息异常！",ex);
@@ -59,13 +49,13 @@ public class BuildingController {
 	}
 	
 	@GetMapping("/findBuilding")
-	public RespBody findBuilding(String residentId,Paging paging){
+	public RespBody findBuilding(String communityId,Paging paging){
 		RespBody respBody = new RespBody();
 		try {
 			//查找数据并返回
-			respBody.add(RespCodeEnum.SUCCESS.getCode(), "获取楼栋信息成功",buildService.findBuilding(residentId,paging));
+			respBody.add(RespCodeEnum.SUCCESS.getCode(), "获取楼栋信息成功",buildService.findBuilding(communityId,paging));
 			//保存分页对象
-			paging.setTotalCount(buildService.findCount(residentId));
+			paging.setTotalCount(buildService.findCount(communityId));
 			respBody.setPage(paging);
 		} catch (Exception ex) {
 			respBody.add(RespCodeEnum.ERROR.getCode(), "获取楼栋信息异常");

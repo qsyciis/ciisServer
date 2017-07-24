@@ -1,5 +1,5 @@
 /* 
- * 文件名：UseResidentUserPo.java  
+ * 文件名：UseCommunityUserPo.java  
  * 版权：Copyright 2016-2017 炎宝网络科技  All Rights Reserved by
  * 修改人：邱深友  
  * 创建时间：2017年6月29日
@@ -15,28 +15,28 @@ import javax.persistence.Table;
  * @version v1.0
  * @date 2017年6月29日
  */
-@Table(name="use_resident_user")
-public class UseResidentUserPo {
+@Table(name="use_community_user")
+public class UseCommunityUserPo {
 	/**
 	 * 住宅小区编号
 	 */
-	private String residentId;
+	private String communityId;
 	/**
 	 * 用户编号
 	 */
 	private String userId;
 	
 	/**
-	 * @return the residentId
+	 * @return the communityId
 	 */
-	public String getResidentId() {
-		return residentId;
+	public String getCommunityId() {
+		return communityId;
 	}
 	/**
-	 * @param residentId the residentId to set
+	 * @param communityId the communityId to set
 	 */
-	public void setResidentId(String residentId) {
-		this.residentId = residentId;
+	public void setCommunityId(String communityId) {
+		this.communityId = communityId;
 	}
 	/**
 	 * @return the userId

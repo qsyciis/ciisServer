@@ -8,7 +8,7 @@
 package com.qzi.cms.common.enums;
 
 /**
- * TODO
+ * 响应枚举
  * @author qsy
  * @version v1.0
  * @date 2016年11月25日

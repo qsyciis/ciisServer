@@ -19,23 +19,24 @@ public class AdminVo {
 	/**
 	 * 住宅小区编号
 	 */
-	private String residentId;
+	private String communityId;
 	/**
 	 * 用户编号集合
 	 */
 	private List<String> userIds;
 	
+
 	/**
-	 * @return the residentId
+	 * @return the communityId
 	 */
-	public String getResidentId() {
-		return residentId;
+	public String getCommunityId() {
+		return communityId;
 	}
 	/**
-	 * @param residentId the residentId to set
+	 * @param communityId the communityId to set
 	 */
-	public void setResidentId(String residentId) {
-		this.residentId = residentId;
+	public void setCommunityId(String communityId) {
+		this.communityId = communityId;
 	}
 	/**
 	 * @return the userIds

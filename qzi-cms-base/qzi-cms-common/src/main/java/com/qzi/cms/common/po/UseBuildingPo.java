@@ -46,7 +46,7 @@ public class UseBuildingPo {
 	/**
 	 * 所属小区主键编号
 	 */
-	private String residentId;
+	private String communityId;
 	/**
 	 * 状态
 	 */
@@ -125,16 +125,16 @@ public class UseBuildingPo {
 		this.floorNumber = floorNumber;
 	}
 	/**
-	 * @return the residentId
+	 * @return the communityId
 	 */
-	public String getResidentId() {
-		return residentId;
+	public String getCommunityId() {
+		return communityId;
 	}
 	/**
-	 * @param residentId the residentId to set
+	 * @param communityId the communityId to set
 	 */
-	public void setResidentId(String residentId) {
-		this.residentId = residentId;
+	public void setCommunityId(String communityId) {
+		this.communityId = communityId;
 	}
 	/**
 	 * @return the state

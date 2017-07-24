@@ -14,6 +14,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.session.RowBounds;
 
 import com.qzi.cms.common.po.UseRoomPo;
+import com.qzi.cms.common.vo.OptionVo;
 import com.qzi.cms.common.vo.UseRoomVo;
 import com.qzi.cms.server.base.BaseMapper;
 
@@ -41,5 +42,21 @@ public interface UseRoomMapper extends BaseMapper<UseRoomPo>{
 	 */
 	@Select("SELECT count(1) from use_room where unitName=#{unitId} and buildingId = #{buildingId}")
 	public long findCount(@Param("buildingId") String buildingId, @Param("unitId") String unitId);
+
+	/**
+	 * @param buildingId
+	 * @param unitNo
+	 * @return
+	 */
+	@Select("SELECT id value,roomName name from use_room where unitName=#{unitNo} and buildingId = #{buildingId} ORDER BY roomNo")
+	public List<OptionVo> findRooms(@Param("buildingId")String buildingId,@Param("unitNo") String unitNo);
+
+	/**
+	 * @param residentId
+	 * @return
+	 */
+	@Select("SELECT ur.*,ub.buildingName from use_room ur,use_resident_room urr,use_building ub "
+			+ "where ur.buildingId = ub.id and urr.roomId= ur.id and urr.residentId=#{residentId}")
+	public List<UseRoomVo> findResidentRooms(@Param("residentId") String residentId);
 
 }

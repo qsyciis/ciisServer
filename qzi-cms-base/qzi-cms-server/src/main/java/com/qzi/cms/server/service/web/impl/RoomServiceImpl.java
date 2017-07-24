@@ -22,7 +22,7 @@ import com.qzi.cms.common.util.YBBeanUtils;
 import com.qzi.cms.common.vo.TreeVo;
 import com.qzi.cms.common.vo.UseRoomVo;
 import com.qzi.cms.server.mapper.UseBuildingMapper;
-import com.qzi.cms.server.mapper.UseResidentAreaMapper;
+import com.qzi.cms.server.mapper.UseCommunityMapper;
 import com.qzi.cms.server.mapper.UseRoomMapper;
 import com.qzi.cms.server.service.web.RoomService;
 
@@ -35,7 +35,7 @@ import com.qzi.cms.server.service.web.RoomService;
 @Service
 public class RoomServiceImpl implements RoomService {
 	@Resource
-	private UseResidentAreaMapper residentAreaMapper;
+	private UseCommunityMapper communityMapper;
 	@Resource
 	private UseBuildingMapper buildMapper;
 	@Resource
@@ -43,11 +43,11 @@ public class RoomServiceImpl implements RoomService {
 
 	@Override
 	public List<TreeVo> findTree(String userId) {
-		List<TreeVo> rlis = residentAreaMapper.findTree(userId);
+		List<TreeVo> rlis = communityMapper.findTree(userId);
 		TreeVo buildingTV = null;
 		//小区
 		for(TreeVo treeVo:rlis){
-			List<UseBuildingPo> builds = buildMapper.findByResidentId(treeVo.getId());
+			List<UseBuildingPo> builds = buildMapper.findByCommunityId(treeVo.getId());
 			List<TreeVo> buildtvs = new ArrayList<>();
 			treeVo.setChildren(buildtvs);
 			//楼栋

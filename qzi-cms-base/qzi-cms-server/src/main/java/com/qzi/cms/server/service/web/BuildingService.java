@@ -23,25 +23,25 @@ public interface BuildingService {
 
 	/**
 	 * 查找用户对应小区构建树形菜单
-	 * @param id 用户编号
 	 * @return 树形菜单集合
+	 * @throws Exception 
 	 */
-	public List<TreeVo> findTree(String id);
+	public List<TreeVo> findTree() throws Exception;
 
 	/**
 	 * 获取楼栋列表数据
-	 * @param residentId 小区编号
+	 * @param communityId 小区编号
 	 * @param paging 分页对象
 	 * @return 楼栋列表
 	 */
-	public List<UseBuildingVo> findBuilding(String residentId, Paging paging);
+	public List<UseBuildingVo> findBuilding(String communityId, Paging paging);
 
 	/**
 	 * 总记录数
-	 * @param residentId 小区编号
+	 * @param communityId 小区编号
 	 * @return 总数
 	 */
-	public long findCount(String residentId);
+	public long findCount(String communityId);
 
 	/**
 	 * 修改状态

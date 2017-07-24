@@ -16,15 +16,17 @@ import org.springframework.stereotype.Service;
 
 import com.qzi.cms.common.enums.StateEnum;
 import com.qzi.cms.common.po.UseBuildingPo;
-import com.qzi.cms.common.po.UseResidentAreaPo;
+import com.qzi.cms.common.po.UseCommunityPo;
 import com.qzi.cms.common.po.UseRoomPo;
 import com.qzi.cms.common.resp.Paging;
 import com.qzi.cms.common.util.ToolUtils;
+import com.qzi.cms.common.vo.SysUserVo;
 import com.qzi.cms.common.vo.TreeVo;
 import com.qzi.cms.common.vo.UseBuildingVo;
 import com.qzi.cms.server.mapper.UseBuildingMapper;
-import com.qzi.cms.server.mapper.UseResidentAreaMapper;
+import com.qzi.cms.server.mapper.UseCommunityMapper;
 import com.qzi.cms.server.mapper.UseRoomMapper;
+import com.qzi.cms.server.service.common.CommonService;
 import com.qzi.cms.server.service.web.BuildingService;
 
 /**
@@ -36,27 +38,31 @@ import com.qzi.cms.server.service.web.BuildingService;
 @Service
 public class BuildingServiceImpl implements BuildingService {
 	@Resource
-	private UseResidentAreaMapper residentAreaMapper;
+	private UseCommunityMapper communityMapper;
 	@Resource
 	private UseBuildingMapper buildMapper;
 	@Resource
 	private UseRoomMapper roomMapper;
+	@Resource
+	private CommonService commonService;
 
 	@Override
-	public List<TreeVo> findTree(String id) {
-		return residentAreaMapper.findTree(id);
+	public List<TreeVo> findTree() throws Exception {
+		//读取用户信息
+		SysUserVo userVo = commonService.findUser();
+		return communityMapper.findTree(userVo.getId());
 	}
 
 
 	@Override
-	public List<UseBuildingVo> findBuilding(String residentId, Paging paging) {
+	public List<UseBuildingVo> findBuilding(String communityId, Paging paging) {
 		RowBounds rowBounds = new RowBounds(paging.getPageNumber(),paging.getPageSize());
-		return buildMapper.findBuilding(residentId,rowBounds);
+		return buildMapper.findBuilding(communityId,rowBounds);
 	}
 
 	@Override
-	public long findCount(String residentId) {
-		return buildMapper.findCount(residentId);
+	public long findCount(String communityId) {
+		return buildMapper.findCount(communityId);
 	}
 
 
@@ -76,7 +82,7 @@ public class BuildingServiceImpl implements BuildingService {
 		buildingPo.setRoomNumber(buildingVo.getRoomNumber());
 		buildMapper.updateByPrimaryKey(buildingPo);
 		//查找小区
-		UseResidentAreaPo residentPo = residentAreaMapper.selectByPrimaryKey(buildingPo.getResidentId());
+		UseCommunityPo communityPo = communityMapper.selectByPrimaryKey(buildingPo.getCommunityId());
 		//生成房间
 		for(int u=1;u<=buildingPo.getUnitNumber();u++){
 			for(int f=1;f<=buildingPo.getFloorNumber();f++){
@@ -86,7 +92,7 @@ public class BuildingServiceImpl implements BuildingService {
 					roomPo.setId(ToolUtils.getUUID());
 					roomPo.setBuildingId(buildingPo.getId());
 					roomPo.setState(StateEnum.NORMAL.getCode());
-					roomPo.setRoomNo(residentPo.getResidentNo()+buildingPo.getBuildingNo()+String.format("%02d", u)+String.format("%02d", f)+String.format("%02d", r));
+					roomPo.setRoomNo(communityPo.getCommunityNo()+buildingPo.getBuildingNo()+String.format("%02d", u)+String.format("%02d", f)+String.format("%02d", r));
 					roomPo.setRoomName(f+String.format("%02d", r));
 					roomMapper.insert(roomPo);
 				}

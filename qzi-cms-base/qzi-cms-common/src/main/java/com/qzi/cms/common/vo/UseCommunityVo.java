@@ -1,38 +1,33 @@
 /* 
- * 文件名：UseResidentAreaPo.java  
+ * 文件名：UseCommunityVo.java  
  * 版权：Copyright 2016-2017 炎宝网络科技  All Rights Reserved by
  * 修改人：邱深友  
  * 创建时间：2017年6月27日
  * 版本号：v1.0
 */
-package com.qzi.cms.common.po;
+package com.qzi.cms.common.vo;
 
 import java.util.Date;
 
-import javax.persistence.Id;
-import javax.persistence.Table;
-
 /**
- * 住宅小区PO类
+ * 住宅小区vo类
  * @author qsy
  * @version v1.0
  * @date 2017年6月27日
  */
-@Table(name="use_resident_area")
-public class UseResidentAreaPo {
+public class UseCommunityVo {
 	/**
 	 * 主键编号
 	 */
-	@Id
 	private String id;
 	/**
 	 * 小区名称
 	 */
-	private String residentName;
+	private String communityName;
 	/**
 	 * 小区编号
 	 */
-	private String residentNo;
+	private String communityNo;
 	/**
 	 * 楼栋数量
 	 */
@@ -123,28 +118,28 @@ public class UseResidentAreaPo {
 		this.id = id;
 	}
 	/**
-	 * @return the residentName
+	 * @return the communityName
 	 */
-	public String getResidentName() {
-		return residentName;
+	public String getCommunityName() {
+		return communityName;
 	}
 	/**
-	 * @param residentName the residentName to set
+	 * @param communityName the communityName to set
 	 */
-	public void setResidentName(String residentName) {
-		this.residentName = residentName;
+	public void setCommunityName(String communityName) {
+		this.communityName = communityName;
 	}
 	/**
-	 * @return the residentNo
+	 * @return the communityNo
 	 */
-	public String getResidentNo() {
-		return residentNo;
+	public String getCommunityNo() {
+		return communityNo;
 	}
 	/**
-	 * @param residentNo the residentNo to set
+	 * @param communityNo the communityNo to set
 	 */
-	public void setResidentNo(String residentNo) {
-		this.residentNo = residentNo;
+	public void setCommunityNo(String communityNo) {
+		this.communityNo = communityNo;
 	}
 	/**
 	 * @return the province

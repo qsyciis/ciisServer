@@ -41,7 +41,7 @@ public class UseBuildingVo {
 	/**
 	 * 所属小区主键编号
 	 */
-	private String residentId;
+	private String communityId;
 	/**
 	 * 状态
 	 */
@@ -84,6 +84,30 @@ public class UseBuildingVo {
 		this.id = id;
 	}
 	/**
+	 * @return the floorNumber
+	 */
+	public int getFloorNumber() {
+		return floorNumber;
+	}
+	/**
+	 * @param floorNumber the floorNumber to set
+	 */
+	public void setFloorNumber(int floorNumber) {
+		this.floorNumber = floorNumber;
+	}
+	/**
+	 * @return the state
+	 */
+	public String getState() {
+		return state;
+	}
+	/**
+	 * @param state the state to set
+	 */
+	public void setState(String state) {
+		this.state = state;
+	}
+	/**
 	 * @return the buildingNo
 	 */
 	public String getBuildingNo() {
@@ -108,39 +132,15 @@ public class UseBuildingVo {
 		this.buildingName = buildingName;
 	}
 	/**
-	 * @return the floorNumber
+	 * @return the communityId
 	 */
-	public int getFloorNumber() {
-		return floorNumber;
+	public String getCommunityId() {
+		return communityId;
 	}
 	/**
-	 * @param floorNumber the floorNumber to set
+	 * @param communityId the communityId to set
 	 */
-	public void setFloorNumber(int floorNumber) {
-		this.floorNumber = floorNumber;
-	}
-	/**
-	 * @return the residentId
-	 */
-	public String getResidentId() {
-		return residentId;
-	}
-	/**
-	 * @param residentId the residentId to set
-	 */
-	public void setResidentId(String residentId) {
-		this.residentId = residentId;
-	}
-	/**
-	 * @return the state
-	 */
-	public String getState() {
-		return state;
-	}
-	/**
-	 * @param state the state to set
-	 */
-	public void setState(String state) {
-		this.state = state;
+	public void setCommunityId(String communityId) {
+		this.communityId = communityId;
 	}
 }

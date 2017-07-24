@@ -1,5 +1,5 @@
 /* 
- * 文件名：ResidentAreaAdminVo.java  
+ * 文件名：CommunityAdminVo.java  
  * 版权：Copyright 2016-2017 炎宝网络科技  All Rights Reserved by
  * 修改人：邱深友  
  * 创建时间：2017年6月29日
@@ -13,7 +13,7 @@ package com.qzi.cms.common.vo;
  * @version v1.0
  * @date 2017年6月29日
  */
-public class ResidentAreaAdminVo {
+public class CommunityAdminVo {
 	/**
 	 * 用户编号
 	 */

@@ -1,5 +1,5 @@
 /* 
- * 文件名：ResidentAreaService.java  
+ * 文件名：CommunityService.java  
  * 版权：Copyright 2016-2017 炎宝网络科技  All Rights Reserved by
  * 修改人：邱深友  
  * 创建时间：2017年6月28日
@@ -11,9 +11,9 @@ import java.util.List;
 
 import com.qzi.cms.common.resp.Paging;
 import com.qzi.cms.common.vo.AdminVo;
-import com.qzi.cms.common.vo.ResidentAreaAdminVo;
+import com.qzi.cms.common.vo.CommunityAdminVo;
 import com.qzi.cms.common.vo.SysCityVo;
-import com.qzi.cms.common.vo.UseResidentAreaVo;
+import com.qzi.cms.common.vo.UseCommunityVo;
 
 /**
  * 住宅小区业务层接口
@@ -21,14 +21,14 @@ import com.qzi.cms.common.vo.UseResidentAreaVo;
  * @version v1.0
  * @date 2017年6月28日
  */
-public interface ResidentAreaService {
+public interface CommunityService {
 
 	/**
 	 * 查找所有数据
 	 * @param paging
 	 * @return
 	 */
-	public List<UseResidentAreaVo> findAll(Paging paging);
+	public List<UseCommunityVo> findAll(Paging paging);
 
 	/**
 	 * 查找总记录数
@@ -38,17 +38,17 @@ public interface ResidentAreaService {
 
 	/**
 	 * 保存
-	 * @param residentAreaVo
+	 * @param communityVo
 	 * @throws Exception 
 	 */
-	public void add(UseResidentAreaVo residentAreaVo) throws Exception;
+	public void add(UseCommunityVo communityVo) throws Exception;
 
 	/**
 	 * 修改
-	 * @param residentAreaVo
+	 * @param communityVo
 	 * @throws Exception 
 	 */
-	public void update(UseResidentAreaVo residentAreaVo) throws Exception;
+	public void update(UseCommunityVo communityVo) throws Exception;
 
 	/**
 	 * 查找中国城市
@@ -58,10 +58,10 @@ public interface ResidentAreaService {
 	public List<SysCityVo> findCitys(String parentCode);
 
 	/**
-	 * @param residentId
+	 * @param communityId
 	 * @return
 	 */
-	public List<ResidentAreaAdminVo> findAdmin(String residentId);
+	public List<CommunityAdminVo> findAdmin(String communityId);
 
 	/**
 	 * @param adminVo
