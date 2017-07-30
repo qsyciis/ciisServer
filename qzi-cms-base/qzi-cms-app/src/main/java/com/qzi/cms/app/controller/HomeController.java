@@ -5,7 +5,7 @@
  * 创建时间：2017年7月30日
  * 版本号：v1.0
 */
-package org.qzi.cms.app.controller;
+package com.qzi.cms.app.controller;
 
 /**
  * 首页控制器
