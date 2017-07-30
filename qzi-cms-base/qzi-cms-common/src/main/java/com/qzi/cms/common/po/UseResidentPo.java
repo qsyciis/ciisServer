@@ -52,7 +52,7 @@ public class UseResidentPo {
 	/**
 	 * 第三方clientid
 	 */
-	private String clientId;
+	private String clientNumber;
 	/**
 	 * 第三方密码
 	 */
@@ -61,6 +61,10 @@ public class UseResidentPo {
 	 * 状态
 	 */
 	private String state;
+	/**
+	 * 开门密码
+	 */
+	private String openPwd;
 	/**
 	 * 创建时间
 	 */
@@ -162,16 +166,28 @@ public class UseResidentPo {
 		this.communityId = communityId;
 	}
 	/**
-	 * @return the clientId
+	 * @return the clientNumber
 	 */
-	public String getClientId() {
-		return clientId;
+	public String getClientNumber() {
+		return clientNumber;
 	}
 	/**
-	 * @param clientId the clientId to set
+	 * @param clientNumber the clientNumber to set
 	 */
-	public void setClientId(String clientId) {
-		this.clientId = clientId;
+	public void setClientNumber(String clientNumber) {
+		this.clientNumber = clientNumber;
+	}
+	/**
+	 * @return the openPwd
+	 */
+	public String getOpenPwd() {
+		return openPwd;
+	}
+	/**
+	 * @param openPwd the openPwd to set
+	 */
+	public void setOpenPwd(String openPwd) {
+		this.openPwd = openPwd;
 	}
 	/**
 	 * @return the clientPwd

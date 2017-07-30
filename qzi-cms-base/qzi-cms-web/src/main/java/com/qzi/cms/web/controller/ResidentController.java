@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.qzi.cms.common.annotation.SystemControllerLog;
 import com.qzi.cms.common.enums.RespCodeEnum;
+import com.qzi.cms.common.exception.CommException;
 import com.qzi.cms.common.resp.Paging;
 import com.qzi.cms.common.resp.RespBody;
 import com.qzi.cms.common.util.LogUtils;
@@ -79,6 +80,9 @@ public class ResidentController {
 				respBody.add(RespCodeEnum.SUCCESS.getCode(), "住户数据保存成功");
 			}
 			
+		} catch (CommException ex) {
+			respBody.add(RespCodeEnum.ERROR.getCode(), "云之讯调用异常");
+			LogUtils.error("云之讯调用异常！",ex);
 		} catch (Exception ex) {
 			respBody.add(RespCodeEnum.ERROR.getCode(), "住户据保存失败");
 			LogUtils.error("住户据保存失败！",ex);
@@ -96,6 +100,20 @@ public class ResidentController {
 		} catch (Exception ex) {
 			respBody.add(RespCodeEnum.ERROR.getCode(), "住户保存失败");
 			LogUtils.error("住户保存失败！",ex);
+		}
+		return respBody;
+	}
+	
+	@PostMapping("/delete")
+	@SystemControllerLog(description="删除住户")
+	public RespBody delete(@RequestBody UseResidentVo residentVo){
+		RespBody respBody = new RespBody();
+		try {
+			residentService.delete(residentVo);
+			respBody.add(RespCodeEnum.SUCCESS.getCode(), "住户删除成功");
+		} catch (Exception ex) {
+			respBody.add(RespCodeEnum.ERROR.getCode(), "住户删除失败");
+			LogUtils.error("住户删除失败！",ex);
 		}
 		return respBody;
 	}

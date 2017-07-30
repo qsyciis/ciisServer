@@ -15,7 +15,9 @@ import javax.annotation.Resource;
 
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.qzi.cms.common.exception.CommException;
 import com.qzi.cms.common.po.UseBuildingPo;
 import com.qzi.cms.common.po.UseResidentPo;
 import com.qzi.cms.common.po.UseResidentRoomPo;
@@ -23,6 +25,9 @@ import com.qzi.cms.common.resp.Paging;
 import com.qzi.cms.common.util.CryptUtils;
 import com.qzi.cms.common.util.ToolUtils;
 import com.qzi.cms.common.util.YBBeanUtils;
+import com.qzi.cms.common.util.YzsClientUtils;
+import com.qzi.cms.common.vo.ClientRespVo;
+import com.qzi.cms.common.vo.ClientVo;
 import com.qzi.cms.common.vo.OptionVo;
 import com.qzi.cms.common.vo.SysUserVo;
 import com.qzi.cms.common.vo.TreeVo;
@@ -57,6 +62,8 @@ public class ResidentServiceImpl implements ResidentService {
 	private UseRoomMapper roomMapper;
 	@Resource
 	private UseResidentRoomMapper residentRoomMapper;
+	@Resource
+	private YzsClientUtils clientUtils;
 	
 	@Override
 	public List<UseResidentVo> findAll(Paging paging, String criteria) throws Exception {
@@ -78,7 +85,9 @@ public class ResidentServiceImpl implements ResidentService {
 
 
 	@Override
+	@Transactional(rollbackFor=Exception.class)
 	public void add(UseResidentVo residentVo) throws Exception {
+		//保存数据
 		UseResidentPo residentPo = YBBeanUtils.copyProperties(residentVo, UseResidentPo.class);
 		residentPo.setId(ToolUtils.getUUID());
 		String salt = ToolUtils.getUUID();
@@ -87,13 +96,24 @@ public class ResidentServiceImpl implements ResidentService {
 		residentPo.setPassword(loginPw);
 		residentPo.setCreateTime(new Date());
 		residentMapper.insert(residentPo);
+		//注册client账号
+		ClientVo client = new ClientVo();
+		client.setUserId(residentVo.getMobile());
+		client.setMobile(residentVo.getMobile());
+		ClientRespVo clientResp = ToolUtils.toObject(clientUtils.createClient(client),ClientRespVo.class);
+		if(clientResp.getResp().getRespCode().equals("000000")){
+			residentPo.setClientNumber(clientResp.getResp().getClient().getClientNumber());
+			residentPo.setClientPwd(clientResp.getResp().getClient().getClientPwd());
+			residentMapper.updateByPrimaryKey(residentPo);
+		}else{
+			throw new CommException("注册Client账号失败["+clientResp.getResp().getRespCode()+"]");
+		}
 	}
 
 	@Override
 	public void update(UseResidentVo residentVo) {
 		UseResidentPo residentPo = residentMapper.selectByPrimaryKey(residentVo.getId());
 		residentPo.setCommunityId(residentVo.getCommunityId());
-		residentPo.setMobile(residentVo.getMobile());
 		residentPo.setName(residentVo.getName());
 		residentPo.setOwner(residentVo.getOwner());
 		residentPo.setState(residentVo.getState());
@@ -151,6 +171,19 @@ public class ResidentServiceImpl implements ResidentService {
 	public void delRelation(UseResidentRoomVo residentRoomVo) throws Exception {
 		UseResidentRoomPo po = YBBeanUtils.copyProperties(residentRoomVo, UseResidentRoomPo.class);
 		residentRoomMapper.delete(po);
+	}
+
+	@Override
+	@Transactional(rollbackFor=Exception.class)
+	public void delete(UseResidentVo residentVo) throws Exception {
+		//注销云之讯账户
+		ClientVo client = new ClientVo();
+		client.setUserId(residentVo.getMobile());
+		clientUtils.deleteClient(client);
+		//删除住户房间关系
+		residentRoomMapper.deleteByResidentId(residentVo.getId());
+		//删除住户信息
+		residentMapper.deleteByPrimaryKey(residentVo.getId());
 	}
 
 }

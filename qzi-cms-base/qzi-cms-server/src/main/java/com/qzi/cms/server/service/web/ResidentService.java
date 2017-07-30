@@ -117,4 +117,11 @@ public interface ResidentService {
 	 */
 	public void delRelation(UseResidentRoomVo residentRoomVo) throws Exception;
 
+	/**
+	 * 删除住户信息
+	 * @param residentVo 住户
+	 * @throws Exception
+	 */
+	public void delete(UseResidentVo residentVo) throws Exception;
+
 }

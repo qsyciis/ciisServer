@@ -29,4 +29,10 @@ public interface UseResidentRoomMapper extends BaseMapper<UseResidentRoomPo>{
 	@Select("SELECT count(1)>0 from use_resident_room where residentId =#{vo.residentId} and roomId =#{vo.roomId}")
 	public boolean existsRelation(@Param("vo") UseResidentRoomVo residentRoomVo);
 
+	/**
+	 * @param id
+	 */
+	@Select("delete from use_resident_room where residentId=#{rid}")
+	public void deleteByResidentId(@Param("rid")String rid);
+
 }

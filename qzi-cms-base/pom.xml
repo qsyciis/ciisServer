@@ -12,6 +12,7 @@
 		<module>qzi-cms-common</module>
 		<module>qzi-cms-server</module>
     <module>qzi-cms-web</module>
+    <module>qzi-cms-app</module>
   </modules>
 
 	<properties>

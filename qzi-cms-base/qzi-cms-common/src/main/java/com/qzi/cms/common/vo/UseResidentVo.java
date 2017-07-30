@@ -45,11 +45,11 @@ public class UseResidentVo {
 	 */
 	private String communityName;
 	/**
-	 * 第三方clientid
+	 * 云之讯clientNumber
 	 */
-	private String clientId;
+	private String clientNumber;
 	/**
-	 * 第三方密码
+	 * 云之讯密码
 	 */
 	private String clientPwd;
 	/**
@@ -57,9 +57,26 @@ public class UseResidentVo {
 	 */
 	private String state;
 	/**
+	 * 开门密码
+	 */
+	private String openPwd;
+	/**
 	 * 创建时间
 	 */
 	private Date createTime;
+	
+	/**
+	 * @return the openPwd
+	 */
+	public String getOpenPwd() {
+		return openPwd;
+	}
+	/**
+	 * @param openPwd the openPwd to set
+	 */
+	public void setOpenPwd(String openPwd) {
+		this.openPwd = openPwd;
+	}
 	/**
 	 * @return the createTime
 	 */
@@ -157,16 +174,16 @@ public class UseResidentVo {
 		this.communityName = communityName;
 	}
 	/**
-	 * @return the clientId
+	 * @return the clientNumber
 	 */
-	public String getClientId() {
-		return clientId;
+	public String getClientNumber() {
+		return clientNumber;
 	}
 	/**
-	 * @param clientId the clientId to set
+	 * @param clientNumber the clientNumber to set
 	 */
-	public void setClientId(String clientId) {
-		this.clientId = clientId;
+	public void setClientNumber(String clientNumber) {
+		this.clientNumber = clientNumber;
 	}
 	/**
 	 * @return the clientPwd

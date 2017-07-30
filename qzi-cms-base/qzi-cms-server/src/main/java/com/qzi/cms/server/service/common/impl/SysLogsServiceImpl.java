@@ -47,6 +47,9 @@ public class SysLogsServiceImpl implements SysLogsService {
 			SysLogsPo po = YBBeanUtils.copyProperties(vo, SysLogsPo.class);
 			po.setId(ToolUtils.getUUID());
 			po.setOptDate(new Date());
+			if(po.getLogDetail() != null && po.getLogDetail().length()>1024){
+				po.setLogDetail(po.getLogDetail().substring(0, 1023));
+			}
 			mapper.insert(po);
 		} catch (Exception ex) {
 			LogUtils.error("日志信息保存失败！", ex);

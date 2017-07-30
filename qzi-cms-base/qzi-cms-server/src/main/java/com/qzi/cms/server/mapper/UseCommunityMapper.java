@@ -14,6 +14,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.session.RowBounds;
 
 import com.qzi.cms.common.po.UseCommunityPo;
+import com.qzi.cms.common.vo.OptionVo;
 import com.qzi.cms.common.vo.TreeVo;
 import com.qzi.cms.common.vo.UseCommunityVo;
 import com.qzi.cms.server.base.BaseMapper;
@@ -51,5 +52,12 @@ public interface UseCommunityMapper extends BaseMapper<UseCommunityPo>{
 	 */
 	@Select("SELECT uc.id id,uc.communityName value from use_community uc,use_community_user ucu where uc.id = ucu.communityId and ucu.userId=#{userId} and uc.state='10'")
 	public List<TreeVo> findTree(@Param("userId") String id);
+
+	/**
+	 * @param id
+	 * @return
+	 */
+	@Select("SELECT uc.id value,uc.communityName name from use_community uc,use_community_user ucu where uc.id = ucu.communityId and ucu.userId=#{userId} and uc.state='10'")
+	public List<OptionVo> findAllByUserId(@Param("userId") String id);
 	
 }
