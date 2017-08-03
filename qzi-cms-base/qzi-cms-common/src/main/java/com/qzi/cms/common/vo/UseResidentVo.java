@@ -33,10 +33,6 @@ public class UseResidentVo {
 	 */
 	private String password;
 	/**
-	 * 是否业主
-	 */
-	private String owner;
-	/**
 	 * 小区编号
 	 */
 	private String communityId;
@@ -53,10 +49,6 @@ public class UseResidentVo {
 	 */
 	private String clientPwd;
 	/**
-	 * 状态
-	 */
-	private String state;
-	/**
 	 * 开门密码
 	 */
 	private String openPwd;
@@ -64,7 +56,39 @@ public class UseResidentVo {
 	 * 创建时间
 	 */
 	private Date createTime;
+	/**
+	 * 状态
+	 */
+	private String state;
+	/**
+	 * 手机短信验证码
+	 */
+	private String smsCode;
 	
+	/**
+	 * @return the smsCode
+	 */
+	public String getSmsCode() {
+		return smsCode;
+	}
+	/**
+	 * @param smsCode the smsCode to set
+	 */
+	public void setSmsCode(String smsCode) {
+		this.smsCode = smsCode;
+	}
+	/**
+	 * @return the state
+	 */
+	public String getState() {
+		return state;
+	}
+	/**
+	 * @param state the state to set
+	 */
+	public void setState(String state) {
+		this.state = state;
+	}
 	/**
 	 * @return the openPwd
 	 */
@@ -138,18 +162,6 @@ public class UseResidentVo {
 		this.password = password;
 	}
 	/**
-	 * @return the owner
-	 */
-	public String getOwner() {
-		return owner;
-	}
-	/**
-	 * @param owner the owner to set
-	 */
-	public void setOwner(String owner) {
-		this.owner = owner;
-	}
-	/**
 	 * @return the communityId
 	 */
 	public String getCommunityId() {
@@ -196,17 +208,5 @@ public class UseResidentVo {
 	 */
 	public void setClientPwd(String clientPwd) {
 		this.clientPwd = clientPwd;
-	}
-	/**
-	 * @return the state
-	 */
-	public String getState() {
-		return state;
-	}
-	/**
-	 * @param state the state to set
-	 */
-	public void setState(String state) {
-		this.state = state;
 	}
 }

@@ -8,7 +8,6 @@
 package com.qzi.cms.server.service.web.impl;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -19,14 +18,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.qzi.cms.common.exception.CommException;
 import com.qzi.cms.common.po.UseBuildingPo;
+import com.qzi.cms.common.po.UseCommunityResidentPo;
 import com.qzi.cms.common.po.UseResidentPo;
 import com.qzi.cms.common.po.UseResidentRoomPo;
 import com.qzi.cms.common.resp.Paging;
-import com.qzi.cms.common.util.CryptUtils;
-import com.qzi.cms.common.util.ToolUtils;
 import com.qzi.cms.common.util.YBBeanUtils;
 import com.qzi.cms.common.util.YzsClientUtils;
-import com.qzi.cms.common.vo.ClientRespVo;
 import com.qzi.cms.common.vo.ClientVo;
 import com.qzi.cms.common.vo.OptionVo;
 import com.qzi.cms.common.vo.SysUserVo;
@@ -35,6 +32,7 @@ import com.qzi.cms.common.vo.UseResidentRoomVo;
 import com.qzi.cms.common.vo.UseResidentVo;
 import com.qzi.cms.common.vo.UseRoomVo;
 import com.qzi.cms.server.mapper.UseBuildingMapper;
+import com.qzi.cms.server.mapper.UseCommunityResidentMapper;
 import com.qzi.cms.server.mapper.UseResidentMapper;
 import com.qzi.cms.server.mapper.UseResidentRoomMapper;
 import com.qzi.cms.server.mapper.UseRoomMapper;
@@ -64,6 +62,8 @@ public class ResidentServiceImpl implements ResidentService {
 	private UseResidentRoomMapper residentRoomMapper;
 	@Resource
 	private YzsClientUtils clientUtils;
+	@Resource
+	private UseCommunityResidentMapper communityResidentMapper;
 	
 	@Override
 	public List<UseResidentVo> findAll(Paging paging, String criteria) throws Exception {
@@ -85,49 +85,27 @@ public class ResidentServiceImpl implements ResidentService {
 
 
 	@Override
-	@Transactional(rollbackFor=Exception.class)
-	public void add(UseResidentVo residentVo) throws Exception {
-		//保存数据
-		UseResidentPo residentPo = YBBeanUtils.copyProperties(residentVo, UseResidentPo.class);
-		residentPo.setId(ToolUtils.getUUID());
-		String salt = ToolUtils.getUUID();
-		residentPo.setSalt(salt);
-		String loginPw = CryptUtils.hmacSHA1Encrypt(residentVo.getMobile(), salt);
-		residentPo.setPassword(loginPw);
-		residentPo.setCreateTime(new Date());
-		residentMapper.insert(residentPo);
-		//注册client账号
-		ClientVo client = new ClientVo();
-		client.setUserId(residentVo.getMobile());
-		client.setMobile(residentVo.getMobile());
-		ClientRespVo clientResp = ToolUtils.toObject(clientUtils.createClient(client),ClientRespVo.class);
-		if(clientResp.getResp().getRespCode().equals("000000")){
-			residentPo.setClientNumber(clientResp.getResp().getClient().getClientNumber());
-			residentPo.setClientPwd(clientResp.getResp().getClient().getClientPwd());
-			residentMapper.updateByPrimaryKey(residentPo);
+	public void add(UseResidentVo residentVo) throws CommException {
+		UseResidentPo residentPo = residentMapper.findMobile(residentVo.getMobile());
+		if(residentPo != null){
+			if(communityResidentMapper.existsCR(residentPo.getId(),residentVo.getCommunityId())){
+				throw new CommException("此手机号已经关联了本小区");
+			}else{
+				UseCommunityResidentPo crPo = new UseCommunityResidentPo();
+				crPo.setResidentId(residentPo.getId());
+				crPo.setCommunityId(residentVo.getCommunityId());
+				crPo.setState(residentVo.getState());
+				communityResidentMapper.insert(crPo);
+			}
+			
 		}else{
-			throw new CommException("注册Client账号失败["+clientResp.getResp().getRespCode()+"]");
+			throw new CommException("手机号未注册,请先注册");
 		}
-	}
-
-	@Override
-	public void update(UseResidentVo residentVo) {
-		UseResidentPo residentPo = residentMapper.selectByPrimaryKey(residentVo.getId());
-		residentPo.setCommunityId(residentVo.getCommunityId());
-		residentPo.setName(residentVo.getName());
-		residentPo.setOwner(residentVo.getOwner());
-		residentPo.setState(residentVo.getState());
-		residentMapper.updateByPrimaryKey(residentPo);
 	}
 
 	@Override
 	public List<TreeVo> findCommunitys() throws Exception {
 		return buildService.findTree();
-	}
-
-	@Override
-	public boolean existsMobile(UseResidentVo residentVo) {
-		return residentMapper.existsMobile(residentVo.getMobile(),residentVo.getCommunityId());
 	}
 
 	@Override
@@ -152,8 +130,8 @@ public class ResidentServiceImpl implements ResidentService {
 	}
 	
 	@Override
-	public List<UseRoomVo> findResidentRooms(String residentId) {
-		return roomMapper.findResidentRooms(residentId);
+	public List<UseRoomVo> findResidentRooms(String residentId,String communityId) {
+		return roomMapper.findResidentRooms(residentId,communityId);
 	}
 
 	@Override
@@ -169,8 +147,7 @@ public class ResidentServiceImpl implements ResidentService {
 
 	@Override
 	public void delRelation(UseResidentRoomVo residentRoomVo) throws Exception {
-		UseResidentRoomPo po = YBBeanUtils.copyProperties(residentRoomVo, UseResidentRoomPo.class);
-		residentRoomMapper.delete(po);
+		residentRoomMapper.deleteByResidentRoom(residentRoomVo);
 	}
 
 	@Override
@@ -181,9 +158,23 @@ public class ResidentServiceImpl implements ResidentService {
 		client.setUserId(residentVo.getMobile());
 		clientUtils.deleteClient(client);
 		//删除住户房间关系
-		residentRoomMapper.deleteByResidentId(residentVo.getId());
-		//删除住户信息
-		residentMapper.deleteByPrimaryKey(residentVo.getId());
+		residentRoomMapper.deleteByCriteria(residentVo.getId(),residentVo.getCommunityId());
+		//删除住户小区关系
+		communityResidentMapper.deleteByCriteria(residentVo.getId(),residentVo.getCommunityId());
+	}
+
+	@Override
+	public void updateState(UseResidentVo residentVo) {
+		UseCommunityResidentPo crPo = new UseCommunityResidentPo();
+		crPo.setCommunityId(residentVo.getCommunityId());
+		crPo.setResidentId(residentVo.getId());
+		crPo.setState(residentVo.getState());
+		communityResidentMapper.updateByPrimaryKey(crPo);
+	}
+
+	@Override
+	public boolean existsOwner(UseResidentRoomVo residentRoomVo) {
+		return residentRoomMapper.existsOwner(residentRoomVo);
 	}
 
 }

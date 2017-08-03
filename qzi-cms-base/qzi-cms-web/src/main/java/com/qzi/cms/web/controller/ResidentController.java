@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.qzi.cms.common.annotation.SystemControllerLog;
 import com.qzi.cms.common.enums.RespCodeEnum;
+import com.qzi.cms.common.enums.YNEnum;
 import com.qzi.cms.common.exception.CommException;
 import com.qzi.cms.common.resp.Paging;
 import com.qzi.cms.common.resp.RespBody;
@@ -71,18 +72,10 @@ public class ResidentController {
 	public RespBody add(@RequestBody UseResidentVo residentVo){
 		RespBody respBody = new RespBody();
 		try {
-			if(residentService.existsMobile(residentVo)){
-				//已存在
-				respBody.add(RespCodeEnum.ERROR.getCode(), "手机号已存在");
-			}else{
-				//不存在
-				residentService.add(residentVo);
-				respBody.add(RespCodeEnum.SUCCESS.getCode(), "住户数据保存成功");
-			}
-			
+			residentService.add(residentVo);
+			respBody.add(RespCodeEnum.SUCCESS.getCode(), "住户数据保存成功");
 		} catch (CommException ex) {
-			respBody.add(RespCodeEnum.ERROR.getCode(), "云之讯调用异常");
-			LogUtils.error("云之讯调用异常！",ex);
+			respBody.add(RespCodeEnum.ERROR.getCode(), ex.getMessage());
 		} catch (Exception ex) {
 			respBody.add(RespCodeEnum.ERROR.getCode(), "住户据保存失败");
 			LogUtils.error("住户据保存失败！",ex);
@@ -90,16 +83,16 @@ public class ResidentController {
 		return respBody;
 	}
 	
-	@PostMapping("/update")
-	@SystemControllerLog(description="修改住户")
-	public RespBody update(@RequestBody UseResidentVo residentVo){
+	@PostMapping("/updateState")
+	@SystemControllerLog(description="修改住户状态")
+	public RespBody updateState(@RequestBody UseResidentVo residentVo){
 		RespBody respBody = new RespBody();
 		try {
-			residentService.update(residentVo);
-			respBody.add(RespCodeEnum.SUCCESS.getCode(), "住户保存成功");
+			residentService.updateState(residentVo);
+			respBody.add(RespCodeEnum.SUCCESS.getCode(), "修改住户状态成功");
 		} catch (Exception ex) {
-			respBody.add(RespCodeEnum.ERROR.getCode(), "住户保存失败");
-			LogUtils.error("住户保存失败！",ex);
+			respBody.add(RespCodeEnum.ERROR.getCode(), "修改住户状态失败");
+			LogUtils.error("修改住户状态失败！",ex);
 		}
 		return respBody;
 	}
@@ -163,13 +156,17 @@ public class ResidentController {
 		RespBody respBody = new RespBody();
 		try {
 			if(residentService.existsRelation(residentRoomVo)){
-				//已存在
+				//已存在绑定房间
 				respBody.add(RespCodeEnum.ERROR.getCode(), "用户已绑定了此房间");
-			}else{
-				//不存在
-				residentService.addRelation(residentRoomVo);
-				respBody.add(RespCodeEnum.SUCCESS.getCode(), "保存住户房间关系成功");
+				return respBody;
 			}
+			if(residentRoomVo.getOwner().equals(YNEnum.YES.getCode()) && residentService.existsOwner(residentRoomVo)){
+				//已存在户主
+				respBody.add(RespCodeEnum.ERROR.getCode(), "此房间已存在户主");
+				return respBody;
+			}
+			residentService.addRelation(residentRoomVo);
+			respBody.add(RespCodeEnum.SUCCESS.getCode(), "保存住户房间关系成功");
 			
 		} catch (Exception ex) {
 			respBody.add(RespCodeEnum.ERROR.getCode(), "保存住户房间关系失败");
@@ -193,14 +190,14 @@ public class ResidentController {
 	}
 	
 	@GetMapping("/findResidentRooms")
-	public RespBody findResidentRooms(String residentId){
+	public RespBody findResidentRooms(String communityId,String residentId){
 		RespBody respBody = new RespBody();
 		try {
 			//保存返回数据
-			respBody.add(RespCodeEnum.SUCCESS.getCode(), "查找所有住户数据成功", residentService.findResidentRooms(residentId));
+			respBody.add(RespCodeEnum.SUCCESS.getCode(), "查找所有住户房间数据成功", residentService.findResidentRooms(residentId,communityId));
 		} catch (Exception ex) {
-			respBody.add(RespCodeEnum.ERROR.getCode(), "查找所有住户数据失败");
-			LogUtils.error("查找所有住户数据失败！",ex);
+			respBody.add(RespCodeEnum.ERROR.getCode(), "查找所有住户房间数据失败");
+			LogUtils.error("查找所有住户房间数据失败！",ex);
 		}
 		return respBody;
 	}

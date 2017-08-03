@@ -34,7 +34,7 @@ import com.qzi.cms.server.service.web.LoginService;
 @RestController
 @RequestMapping(value = "/login")
 public class LoginController {
-	@Resource
+	@Resource(name="webLogin")
 	private LoginService loginService;
 	@Resource
 	private KaptchaService kaptchaService;

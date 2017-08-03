@@ -1,36 +1,31 @@
 /* 
- * 文件名：UseResidentRoomVo.java  
+ * 文件名：UseCommunityResidentVo.java  
  * 版权：Copyright 2016-2017 炎宝网络科技  All Rights Reserved by
  * 修改人：邱深友  
- * 创建时间：2017年7月22日
+ * 创建时间：2017年8月1日
  * 版本号：v1.0
 */
 package com.qzi.cms.common.vo;
 
 /**
- * 住户房间Vo
+ * 住户小区VO类
  * @author qsy
  * @version v1.0
- * @date 2017年7月22日
+ * @date 2017年8月1日
  */
-public class UseResidentRoomVo {
-	/**
-	 * 住户编号
-	 */
-	private String residentId;
-	/**
-	 * 房间编号
-	 */
-	private String roomId;
+public class UseCommunityResidentVo {
 	/**
 	 * 小区编号
 	 */
 	private String communityId;
 	/**
-	 * 户主
+	 * 住户编号
 	 */
-	private String owner;
-	
+	private String residentId;
+	/**
+	 * 状态
+	 */
+	private String state;
 	/**
 	 * @return the communityId
 	 */
@@ -42,18 +37,6 @@ public class UseResidentRoomVo {
 	 */
 	public void setCommunityId(String communityId) {
 		this.communityId = communityId;
-	}
-	/**
-	 * @return the owner
-	 */
-	public String getOwner() {
-		return owner;
-	}
-	/**
-	 * @param owner the owner to set
-	 */
-	public void setOwner(String owner) {
-		this.owner = owner;
 	}
 	/**
 	 * @return the residentId
@@ -68,15 +51,15 @@ public class UseResidentRoomVo {
 		this.residentId = residentId;
 	}
 	/**
-	 * @return the roomId
+	 * @return the state
 	 */
-	public String getRoomId() {
-		return roomId;
+	public String getState() {
+		return state;
 	}
 	/**
-	 * @param roomId the roomId to set
+	 * @param state the state to set
 	 */
-	public void setRoomId(String roomId) {
-		this.roomId = roomId;
+	public void setState(String state) {
+		this.state = state;
 	}
 }

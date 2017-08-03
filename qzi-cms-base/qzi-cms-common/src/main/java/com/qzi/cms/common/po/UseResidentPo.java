@@ -7,6 +7,7 @@
 */
 package com.qzi.cms.common.po;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Id;
@@ -19,7 +20,11 @@ import javax.persistence.Table;
  * @date 2017年7月18日
  */
 @Table(name="use_resident")
-public class UseResidentPo {
+public class UseResidentPo implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5844559805321323478L;
 	/**
 	 * 主键编号
 	 */
@@ -42,14 +47,6 @@ public class UseResidentPo {
 	 */
 	private String salt;
 	/**
-	 * 是否业主
-	 */
-	private String owner;
-	/**
-	 * 小区编号
-	 */
-	private String communityId;
-	/**
 	 * 第三方clientid
 	 */
 	private String clientNumber;
@@ -57,10 +54,6 @@ public class UseResidentPo {
 	 * 第三方密码
 	 */
 	private String clientPwd;
-	/**
-	 * 状态
-	 */
-	private String state;
 	/**
 	 * 开门密码
 	 */
@@ -142,30 +135,6 @@ public class UseResidentPo {
 		this.password = password;
 	}
 	/**
-	 * @return the owner
-	 */
-	public String getOwner() {
-		return owner;
-	}
-	/**
-	 * @param owner the owner to set
-	 */
-	public void setOwner(String owner) {
-		this.owner = owner;
-	}
-	/**
-	 * @return the communityId
-	 */
-	public String getCommunityId() {
-		return communityId;
-	}
-	/**
-	 * @param communityId the communityId to set
-	 */
-	public void setCommunityId(String communityId) {
-		this.communityId = communityId;
-	}
-	/**
 	 * @return the clientNumber
 	 */
 	public String getClientNumber() {
@@ -200,17 +169,5 @@ public class UseResidentPo {
 	 */
 	public void setClientPwd(String clientPwd) {
 		this.clientPwd = clientPwd;
-	}
-	/**
-	 * @return the state
-	 */
-	public String getState() {
-		return state;
-	}
-	/**
-	 * @param state the state to set
-	 */
-	public void setState(String state) {
-		this.state = state;
 	}
 }

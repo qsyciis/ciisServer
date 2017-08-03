@@ -8,6 +8,7 @@
 package com.qzi.cms.server.service.common;
 
 import com.qzi.cms.common.vo.SysUserVo;
+import com.qzi.cms.common.vo.UseResidentVo;
 
 /**
  * 通用业务层接口
@@ -23,5 +24,19 @@ public interface CommonService {
 	 * @throws Exception 
 	 */
 	public SysUserVo findUser() throws Exception;
+
+	/**
+	 * 获取用户信息
+	 * @return 住户信息
+	 * @throws Exception 
+	 */
+	public UseResidentVo findResident() throws Exception;
+
+	/**
+	 * @param mobile
+	 * @return
+	 * @throws Exception 
+	 */
+	public void sendSms(String mobile) throws Exception;
 	
 }

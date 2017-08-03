@@ -25,6 +25,7 @@ public class AppTest {
 		System.out.println(salt);
 		System.out.println(loginPw+"="+loginPw.length());
 		System.out.println(String.format("%012d单元",2000001));
+		System.out.println(ToolUtils.isMobile("13578978955"));
 	}
 	
 	@Test

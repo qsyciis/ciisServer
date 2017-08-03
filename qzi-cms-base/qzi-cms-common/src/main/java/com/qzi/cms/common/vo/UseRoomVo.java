@@ -42,7 +42,23 @@ public class UseRoomVo {
 	 * 楼栋
 	 */
 	private String buildingName;
+	/**
+	 * 户主
+	 */
+	private String owner;
 	
+	/**
+	 * @return the owner
+	 */
+	public String getOwner() {
+		return owner;
+	}
+	/**
+	 * @param owner the owner to set
+	 */
+	public void setOwner(String owner) {
+		this.owner = owner;
+	}
 	/**
 	 * @return the buildingName
 	 */

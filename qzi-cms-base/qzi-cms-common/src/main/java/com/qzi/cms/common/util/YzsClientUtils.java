@@ -8,6 +8,7 @@
 package com.qzi.cms.common.util;
 
 import com.qzi.cms.common.vo.ClientVo;
+import com.qzi.cms.common.vo.SmsVo;
 
 /**
  * 云之讯通讯
@@ -20,6 +21,7 @@ public class YzsClientUtils {
 	private String token;
 	private String appid;
 	private String url;
+	private String templateId;
 	
 	/**
 	 * 创建帐号
@@ -65,7 +67,50 @@ public class YzsClientUtils {
 		return rstr;
 	}
 	
+	/**
+	 * 获取手机验证码
+	 * @param mobile 手机号
+	 * @param smsCode 短信验证码
+	 * @return
+	 * @throws Exception
+	 */
+	public String sendSMS(String mobile,String smsCode) throws Exception{
+		String rstr = null;
+		String timestamp = DateUtils.formatDateTime(DateUtils.DATE_TIME_FORMAT4);
+		String reqUrl = url.concat("/2014-06-30")
+		.concat("/Accounts/")
+		.concat(sid)
+		.concat("/Messages/templateSMS")
+		.concat("?sig=")
+		.concat(CryptUtils.getSignature(sid, token, timestamp));
+		
+		SmsVo smsVo = new SmsVo();
+		smsVo.setAppId(appid);
+		smsVo.setParam(smsCode);
+		smsVo.setTemplateId(templateId);
+		smsVo.setTo(mobile);
+		
+		String param = "{\"templateSMS\":"+ToolUtils.toJson(smsVo)+"}";
+		String auth= CryptUtils.base64Encoder(sid+":"+timestamp);
+		rstr = HttpUtils.sendPostJson(reqUrl,param,auth);
+		return rstr;
+	}
 	
+	
+	/**
+	 * @return the templateId
+	 */
+	public String getTemplateId() {
+		return templateId;
+	}
+
+	/**
+	 * @param templateId the templateId to set
+	 */
+	public void setTemplateId(String templateId) {
+		this.templateId = templateId;
+	}
+
 	/**
 	 * @return the url
 	 */

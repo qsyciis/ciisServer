@@ -8,6 +8,8 @@
 package com.qzi.cms.common.util;
 
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -95,5 +97,16 @@ public class ToolUtils {
         }  
         return null;  
     }
+    
+    /**
+     * 验证手机号是否正确
+     * @param mobile 手机号
+     * @return true|false
+     */
+	public static boolean isMobile(String mobile){
+		Pattern p = Pattern.compile("^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$");
+		Matcher m = p.matcher(mobile);
+		return m.matches();
+	}
 	
 }

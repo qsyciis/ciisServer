@@ -30,7 +30,7 @@ import com.qzi.cms.server.service.web.LoginService;
  * @version v1.0
  * @date 2016年11月27日
  */
-@Service
+@Service("webLogin")
 public class LoginServiceImpl implements LoginService {
 	@Resource
 	private SysUserMapper userMapper;

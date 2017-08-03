@@ -31,8 +31,23 @@ public interface UseResidentRoomMapper extends BaseMapper<UseResidentRoomPo>{
 
 	/**
 	 * @param id
+	 * @param communityId
 	 */
-	@Select("delete from use_resident_room where residentId=#{rid}")
-	public void deleteByResidentId(@Param("rid")String rid);
+	@Select("delete from use_resident_room where residentId=#{rid} and communityId=#{cid}")
+	public void deleteByCriteria(@Param("rid") String residentId,@Param("cid") String communityId);
+
+	/**
+	 * @param residentRoomVo
+	 * @return
+	 */
+	@Select("SELECT count(1)>0 from use_resident_room where roomId =#{vo.roomId} and owner='10'")
+	public boolean existsOwner(@Param("vo") UseResidentRoomVo residentRoomVo);
+	
+	/**
+	 * @param id
+	 * @param communityId
+	 */
+	@Select("delete from use_resident_room where residentId=#{vo.residentId} and roomId=#{vo.roomId}")
+	public void deleteByResidentRoom(@Param("vo") UseResidentRoomVo residentRoomVo);
 
 }

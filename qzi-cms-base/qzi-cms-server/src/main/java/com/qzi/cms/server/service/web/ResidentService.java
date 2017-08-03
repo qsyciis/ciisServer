@@ -49,24 +49,11 @@ public interface ResidentService {
 	public void add(UseResidentVo residentVo) throws Exception;
 
 	/**
-	 * 修改住户信息
-	 * @param residentVo 住户信息
-	 */
-	public void update(UseResidentVo residentVo);
-
-	/**
 	 * 获取用户管理小区
 	 * @return
 	 * @throws Exception 
 	 */
 	public List<TreeVo> findCommunitys() throws Exception;
-
-	/**
-	 * 同一小区手机号是否存在
-	 * @param residentVo 住户信息
-	 * @return true(存在)|false(不存在)
-	 */
-	public boolean existsMobile(UseResidentVo residentVo);
 
 	/**
 	 * 查找楼栋集合
@@ -93,9 +80,10 @@ public interface ResidentService {
 	/**
 	 * 查找房间集合
 	 * @param residentId 住户编号
+	 * @param communityId 小区编号
 	 * @return 住户关联房间信息集合
 	 */
-	public List<UseRoomVo> findResidentRooms(String residentId);
+	public List<UseRoomVo> findResidentRooms(String residentId,String communityId);
 
 	/**
 	 * 住房房间是否存在
@@ -123,5 +111,18 @@ public interface ResidentService {
 	 * @throws Exception
 	 */
 	public void delete(UseResidentVo residentVo) throws Exception;
+
+	/**
+	 * 修改户主状态
+	 * @param residentVo 住户
+	 */
+	public void updateState(UseResidentVo residentVo);
+
+	/**
+	 * 是否户主
+	 * @param residentRoomVo 住户
+	 * @return
+	 */
+	public boolean existsOwner(UseResidentRoomVo residentRoomVo);
 
 }

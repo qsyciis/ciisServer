@@ -14,8 +14,8 @@ package com.qzi.cms.common.enums;
  * @date 2017年7月18日
  */
 public enum YNEnum {
-	NORMAL("10","是"),
-	DISABLE("20","否");
+	YES("10","是"),
+	NO("20","否");
 	private String code;
 	private String name;
 	

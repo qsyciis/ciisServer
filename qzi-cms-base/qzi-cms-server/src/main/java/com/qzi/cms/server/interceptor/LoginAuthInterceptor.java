@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.qzi.cms.common.enums.RespCodeEnum;
+import com.qzi.cms.common.po.UseResidentPo;
 import com.qzi.cms.common.resp.RespBody;
 import com.qzi.cms.common.service.RedisService;
 import com.qzi.cms.common.util.ConfUtils;
@@ -76,7 +77,7 @@ public class LoginAuthInterceptor extends HandlerInterceptorAdapter{
 		
 		//redis是否存在
 		Object obj = redisService.getObj(token);
-		if(obj == null || !((obj instanceof SysUserVo))){
+		if(obj == null || !(obj instanceof SysUserVo || obj instanceof UseResidentPo)){
 			RespBody respBody = new RespBody();
 			respBody.add(RespCodeEnum.NOLOGIN.getCode(),"过长时间没有操作，页面过期，请重新登录");
 			errorOut(response,respBody);

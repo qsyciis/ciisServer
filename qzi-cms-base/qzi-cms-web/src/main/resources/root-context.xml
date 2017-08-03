@@ -52,6 +52,7 @@
 		<property name="sid" value="${yzs.sid}"/>
 		<property name="token" value="${yzs.token}"/>
 		<property name="appid" value="${yzs.appid}"/>
+		<property name="templateId" value="${yzs.templateId}"/>
 	</bean>
 
 	<!-- mapper -->

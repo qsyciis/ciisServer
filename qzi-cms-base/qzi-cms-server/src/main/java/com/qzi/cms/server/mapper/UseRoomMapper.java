@@ -55,8 +55,8 @@ public interface UseRoomMapper extends BaseMapper<UseRoomPo>{
 	 * @param residentId
 	 * @return
 	 */
-	@Select("SELECT ur.*,ub.buildingName from use_room ur,use_resident_room urr,use_building ub "
-			+ "where ur.buildingId = ub.id and urr.roomId= ur.id and urr.residentId=#{residentId}")
-	public List<UseRoomVo> findResidentRooms(@Param("residentId") String residentId);
+	@Select("SELECT ur.*,ub.buildingName,urr.owner from use_room ur,use_resident_room urr,use_building ub "
+			+ "where ur.buildingId = ub.id and urr.roomId= ur.id and urr.residentId=#{rid} and urr.communityId=#{cid}")
+	public List<UseRoomVo> findResidentRooms(@Param("rid") String residentId,@Param("cid") String communityId);
 
 }

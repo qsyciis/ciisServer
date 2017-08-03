@@ -1,8 +1,8 @@
 /* 
- * 文件名：UseResidentRoomPo.java  
+ * 文件名：UseCommunityResident.java  
  * 版权：Copyright 2016-2017 炎宝网络科技  All Rights Reserved by
  * 修改人：邱深友  
- * 创建时间：2017年7月20日
+ * 创建时间：2017年8月1日
  * 版本号：v1.0
 */
 package com.qzi.cms.common.po;
@@ -11,32 +11,39 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * 住户房间Po类
+ * 住户小区Po
  * @author qsy
  * @version v1.0
- * @date 2017年7月20日
+ * @date 2017年8月1日
  */
-@Table(name="use_resident_room")
-public class UseResidentRoomPo {
+@Table(name="use_community_resident")
+public class UseCommunityResidentPo {
+	/**
+	 * 小区编号
+	 */
+	@Id
+	private String communityId;
 	/**
 	 * 住户编号
 	 */
 	@Id
 	private String residentId;
 	/**
-	 * 房间编号
+	 * 状态
 	 */
-	@Id
-	private String roomId;
+	private String state;
 	/**
-	 * 小区编号
+	 * @return the state
 	 */
-	private String communityId;
+	public String getState() {
+		return state;
+	}
 	/**
-	 * 是否户主
+	 * @param state the state to set
 	 */
-	private String owner;
-	
+	public void setState(String state) {
+		this.state = state;
+	}
 	/**
 	 * @return the communityId
 	 */
@@ -50,18 +57,6 @@ public class UseResidentRoomPo {
 		this.communityId = communityId;
 	}
 	/**
-	 * @return the owner
-	 */
-	public String getOwner() {
-		return owner;
-	}
-	/**
-	 * @param owner the owner to set
-	 */
-	public void setOwner(String owner) {
-		this.owner = owner;
-	}
-	/**
 	 * @return the residentId
 	 */
 	public String getResidentId() {
@@ -72,17 +67,5 @@ public class UseResidentRoomPo {
 	 */
 	public void setResidentId(String residentId) {
 		this.residentId = residentId;
-	}
-	/**
-	 * @return the roomId
-	 */
-	public String getRoomId() {
-		return roomId;
-	}
-	/**
-	 * @param roomId the roomId to set
-	 */
-	public void setRoomId(String roomId) {
-		this.roomId = roomId;
 	}
 }

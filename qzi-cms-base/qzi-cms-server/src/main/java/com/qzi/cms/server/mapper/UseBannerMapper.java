@@ -36,5 +36,11 @@ public interface UseBannerMapper extends BaseMapper<UseBannerPo>{
 	 */
 	@Select("SELECT count(1) from use_banner")
 	public long findCount();
+
+	/**
+	 * @return
+	 */
+	@Select("SELECT img from use_banner where state='10' order by bannerIdx")
+	public List<String> findBanners();
 	
 }
