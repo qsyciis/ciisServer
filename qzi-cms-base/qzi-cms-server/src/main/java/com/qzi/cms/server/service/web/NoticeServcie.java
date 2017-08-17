@@ -44,12 +44,14 @@ public interface NoticeServcie {
 	/**
 	 * 删除
 	 * @param noticeVo
+	 * @throws Exception 
 	 */
-	public void delete(UseNoticeVo noticeVo);
+	public void delete(UseNoticeVo noticeVo) throws Exception;
 
 	/**
 	 * 查找总记录数
 	 * @return
+	 * @throws Exception 
 	 */
-	public long findCount();
+	public long findCount() throws Exception;
 }

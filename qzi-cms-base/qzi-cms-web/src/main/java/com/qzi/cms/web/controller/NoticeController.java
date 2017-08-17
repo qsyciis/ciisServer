@@ -32,17 +32,17 @@ import com.qzi.cms.server.service.web.NoticeServcie;
 @RestController
 @RequestMapping("/notice")
 public class NoticeController {
-	@Resource
-	private NoticeServcie noteceServcie;
+	@Resource(name="webNotice")
+	private NoticeServcie noticeServcie;
 	
 	@GetMapping("/findAll")
 	public RespBody findAll(Paging paging){
 		RespBody respBody = new RespBody();
 		try {
 			//保存返回数据
-			respBody.add(RespCodeEnum.SUCCESS.getCode(), "公告管理查找所有数据成功", noteceServcie.findAll(paging));
+			respBody.add(RespCodeEnum.SUCCESS.getCode(), "公告管理查找所有数据成功", noticeServcie.findAll(paging));
 			//保存分页对象
-			paging.setTotalCount(noteceServcie.findCount());
+			paging.setTotalCount(noticeServcie.findCount());
 			respBody.setPage(paging);
 		} catch (Exception ex) {
 			respBody.add(RespCodeEnum.ERROR.getCode(), "公告管理查找所有数据失败");
@@ -56,7 +56,7 @@ public class NoticeController {
 	public RespBody add(@RequestBody UseNoticeVo noticeVo){
 		RespBody respBody = new RespBody();
 		try {
-			noteceServcie.add(noticeVo);
+			noticeServcie.add(noticeVo);
 			respBody.add(RespCodeEnum.SUCCESS.getCode(), "公告管理保存成功");
 		} catch (Exception ex) {
 			respBody.add(RespCodeEnum.ERROR.getCode(), "公告管理保存失败");
@@ -70,7 +70,7 @@ public class NoticeController {
 	public RespBody update(@RequestBody UseNoticeVo noticeVo){
 		RespBody respBody = new RespBody();
 		try {
-			noteceServcie.update(noticeVo);
+			noticeServcie.update(noticeVo);
 			respBody.add(RespCodeEnum.SUCCESS.getCode(), "公告管理保存成功");
 		} catch (Exception ex) {
 			respBody.add(RespCodeEnum.ERROR.getCode(), "公告管理保存失败");
@@ -84,7 +84,7 @@ public class NoticeController {
 	public RespBody delete(@RequestBody UseNoticeVo noticeVo){
 		RespBody respBody = new RespBody();
 		try {
-			noteceServcie.delete(noticeVo);
+			noticeServcie.delete(noticeVo);
 			respBody.add(RespCodeEnum.SUCCESS.getCode(), "公告管理删除成功");
 		} catch (Exception ex) {
 			respBody.add(RespCodeEnum.ERROR.getCode(), "公告管理删除失败");

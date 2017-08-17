@@ -37,12 +37,14 @@ public interface MessageService {
 	/**
 	 * 删除
 	 * @param messageVo
+	 * @throws Exception 
 	 */
-	public void delete(UseMessageVo messageVo);
+	public void delete(UseMessageVo messageVo) throws Exception;
 
 	/**
 	 * 查找总记录数
 	 * @return
+	 * @throws Exception 
 	 */
-	public long findCount();
+	public long findCount() throws Exception;
 }

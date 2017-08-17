@@ -7,6 +7,7 @@
 */
 package com.qzi.cms.server.service.web.impl;
 
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 
@@ -20,12 +21,15 @@ import com.qzi.cms.common.enums.MsgStateEnum;
 import com.qzi.cms.common.po.UseMessagePo;
 import com.qzi.cms.common.po.UseResidentMessagePo;
 import com.qzi.cms.common.resp.Paging;
+import com.qzi.cms.common.util.ScpUtil;
 import com.qzi.cms.common.util.ToolUtils;
 import com.qzi.cms.common.util.YBBeanUtils;
+import com.qzi.cms.common.vo.SysUserVo;
 import com.qzi.cms.common.vo.UseMessageVo;
 import com.qzi.cms.server.mapper.UseMessageMapper;
 import com.qzi.cms.server.mapper.UseResidentMapper;
 import com.qzi.cms.server.mapper.UseResidentMessageMapper;
+import com.qzi.cms.server.service.common.CommonService;
 import com.qzi.cms.server.service.web.MessageService;
 
 /**
@@ -34,7 +38,7 @@ import com.qzi.cms.server.service.web.MessageService;
  * @version v1.0
  * @date 2017年8月2日
  */
-@Service
+@Service("webMessage")
 public class MessageServiceImpl implements MessageService{
 	@Resource
 	private UseMessageMapper messageMapper;
@@ -42,11 +46,16 @@ public class MessageServiceImpl implements MessageService{
 	private UseResidentMessageMapper rmMapper;
 	@Resource
 	private UseResidentMapper residentMapper;
+	@Resource
+	private CommonService commonService;
+	@Resource
+	private ScpUtil scpUtil;
 
 	@Override
 	public List<UseMessageVo> findAll(Paging paging) throws Exception {
+		SysUserVo userVo = commonService.findUser();
 		RowBounds rwoBounds = new RowBounds(paging.getPageNumber(),paging.getPageSize());
-		return messageMapper.findAll(rwoBounds);
+		return messageMapper.findAll(rwoBounds,userVo.getId());
 	}
 
 	@Override
@@ -56,6 +65,14 @@ public class MessageServiceImpl implements MessageService{
 		UseMessagePo messagePo = YBBeanUtils.copyProperties(messageVo, UseMessagePo.class);
 		messagePo.setId(ToolUtils.getUUID());
 		messagePo.setCreateTime(new Date());
+		if(messageVo.getImg() != null && messageVo.getImg().length()>0){
+			String imgName = ToolUtils.getUUID()+".jpg";
+			//转换图片
+			String img = messageVo.getImg().substring(messageVo.getImg().indexOf(";base64,")+8);
+			//将图片上传到服务器
+			scpUtil.uploadFile(Base64.getDecoder().decode(img),scpUtil.getRemoteRootDir()+"/message", imgName);
+			messagePo.setImg("message/"+imgName);
+		}
 		//保存消息
 		messageMapper.insert(messagePo);
 		//发送消息(消息住户)
@@ -72,13 +89,21 @@ public class MessageServiceImpl implements MessageService{
 	}
 
 	@Override
-	public void delete(UseMessageVo messageVo) {
+	@Transactional(rollbackFor=Exception.class)
+	public void delete(UseMessageVo messageVo) throws Exception {
+		if(messageVo.getImg() != null && messageVo.getImg().length()>0){
+			//删除图片
+			scpUtil.delFile(scpUtil.getRemoteRootDir()+"/"+messageVo.getImg());
+		}
 		messageMapper.deleteByPrimaryKey(messageVo.getId());
+		//删除绑定的个人消息
+		rmMapper.deleteByMsgId(messageVo.getId());
 	}
 
 	@Override
-	public long findCount() {
-		return messageMapper.findCount();
+	public long findCount() throws Exception {
+		SysUserVo userVo = commonService.findUser();
+		return messageMapper.findCount(userVo.getId());
 	}
 
 }

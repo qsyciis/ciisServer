@@ -25,6 +25,7 @@ public class ScpUtil {
 	private int port;
 	private String userName;
 	private String passWord;
+	private String remoteRootDir;
 	
 	/**
 	 * 建立连接
@@ -62,6 +63,29 @@ public class ScpUtil {
 			scpClient = scpConnection.createSCPClient();
 			createDir(scpDir,scpConnection);
 			scpClient.put(localFilePath, scpFileName, scpDir, "0774");
+		} catch (Exception ex) {
+			LogUtils.error(ex.getMessage(), ex);
+			throw ex;
+		}finally{
+			closeServer(scpConnection);
+		}
+	}
+	
+	/**
+	 * 上传文件
+	 * @param fileByte 二进制文件
+	 * @param scpFileName 远程文件名
+	 * @param scpDir 远程文件目录
+	 * @throws Exception
+	 */
+	public void uploadFile(byte[] fileByte, String scpDir, String scpFileName) throws Exception{
+		SCPClient scpClient = null;
+		Connection scpConnection = null;
+		try {
+			scpConnection = connectServer();
+			scpClient = scpConnection.createSCPClient();
+			createDir(scpDir,scpConnection);
+			scpClient.put(fileByte, scpFileName, scpDir, "0774");
 		} catch (Exception ex) {
 			LogUtils.error(ex.getMessage(), ex);
 			throw ex;
@@ -111,7 +135,7 @@ public class ScpUtil {
 	}
 	
 	/**
-	 * 文件批量删除
+	 * 文件批量上传
 	 * @param localFilePath 本地文件集合
 	 * @param scpDir 远程目录
 	 * @param scpFileName 远程文件集合
@@ -175,7 +199,13 @@ public class ScpUtil {
 		}
 	}
 	
-	
+	public String getRemoteRootDir() {
+		return remoteRootDir;
+	}
+
+	public void setRemoteRootDir(String remoteRootDir) {
+		this.remoteRootDir = remoteRootDir;
+	}
 
 	public String getIp() {
 		return ip;

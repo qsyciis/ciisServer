@@ -25,6 +25,10 @@ public class UseMessageVo {
 	 */
 	private String title;
 	/**
+	 * 图片
+	 */
+	private String img;
+	/**
 	 * 内容
 	 */
 	private String content;
@@ -53,6 +57,18 @@ public class UseMessageVo {
 	 */
 	private String sendee;
 	
+	/**
+	 * @return the img
+	 */
+	public String getImg() {
+		return img;
+	}
+	/**
+	 * @param img the img to set
+	 */
+	public void setImg(String img) {
+		this.img = img;
+	}
 	/**
 	 * @return the sendee
 	 */

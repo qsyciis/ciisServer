@@ -44,8 +44,9 @@ public interface BannerService {
 	/**
 	 * 删除
 	 * @param bannerVo
+	 * @throws Exception 
 	 */
-	public void delete(UseBannerVo bannerVo);
+	public void delete(UseBannerVo bannerVo) throws Exception;
 
 	/**
 	 * 查找总记录数

@@ -44,6 +44,7 @@
 		<property name="port" value="${scp.port}"/>
 		<property name="userName" value="${scp.userName}"/>
 		<property name="passWord" value="${scp.passWord}"/>
+		<property name="remoteRootDir" value="${scp.remoteRootDir}"/>
 	</bean>
 	
 	<!-- 云之讯工具类 -->

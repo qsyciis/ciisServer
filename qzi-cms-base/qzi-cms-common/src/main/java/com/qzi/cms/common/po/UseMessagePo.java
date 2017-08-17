@@ -30,6 +30,14 @@ public class UseMessagePo {
 	 */
 	private String title;
 	/**
+	 * 小区编号
+	 */
+	private String communityId;
+	/**
+	 * 图片
+	 */
+	private String img;
+	/**
 	 * 内容
 	 */
 	private String content;
@@ -41,6 +49,31 @@ public class UseMessagePo {
 	 * 接收对象
 	 */
 	private String sendee;
+	
+	/**
+	 * @return the communityId
+	 */
+	public String getCommunityId() {
+		return communityId;
+	}
+	/**
+	 * @param communityId the communityId to set
+	 */
+	public void setCommunityId(String communityId) {
+		this.communityId = communityId;
+	}
+	/**
+	 * @return the img
+	 */
+	public String getImg() {
+		return img;
+	}
+	/**
+	 * @param img the img to set
+	 */
+	public void setImg(String img) {
+		this.img = img;
+	}
 	/**
 	 * @return the sendee
 	 */

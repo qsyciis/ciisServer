@@ -9,6 +9,7 @@ package com.qzi.cms.server.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.session.RowBounds;
 
@@ -28,13 +29,34 @@ public interface UseMessageMapper extends BaseMapper<UseMessagePo>{
 	 * @param rwoBounds
 	 * @return
 	 */
-	@Select("select * from use_message order by createTime")
-	public List<UseMessageVo> findAll(RowBounds rwoBounds);
+	@Select("select um.* from use_message um,use_community_user ucu "
+			+ "where ucu.communityId = um.communityId and ucu.userId=#{uid} "
+			+ "order by createTime")
+	public List<UseMessageVo> findAll(RowBounds rwoBounds, @Param("uid")String userId);
 
 	/**
 	 * @return
 	 */
-	@Select("select count(1) from use_message")
-	public long findCount();
+	@Select("select count(1) from use_message um,use_community_user ucu "
+			+ "where ucu.communityId = um.communityId and ucu.userId=#{uid}")
+	public long findCount(@Param("uid")String userId);
+
+	/**
+	 * 查询住户最新消息
+	 * @param redidentId
+	 * @return
+	 */
+	@Select("SELECT um.* from use_message um,use_resident_message urm "
+			+ "where um.id = urm.messageId and urm.residentId=#{rid} "
+			+ "ORDER BY um.createTime DESC limit 1")
+	public UseMessageVo findTopMsg(@Param("rid") String residentId);
+
+	/**
+	 * 查找住户未读消息数
+	 * @param residentId
+	 * @return
+	 */
+	@Select("select count(1) from use_resident_message where residentId=#{rid} and state='10'")
+	public long findMsgCount(@Param("rid") String residentId);
 
 }

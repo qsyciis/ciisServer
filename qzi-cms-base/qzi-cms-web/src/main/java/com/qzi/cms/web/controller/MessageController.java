@@ -32,7 +32,7 @@ import com.qzi.cms.server.service.web.MessageService;
 @RestController
 @RequestMapping("/message")
 public class MessageController {
-	@Resource
+	@Resource(name="webMessage")
 	private MessageService messageService;
 	
 	@GetMapping("/findAll")

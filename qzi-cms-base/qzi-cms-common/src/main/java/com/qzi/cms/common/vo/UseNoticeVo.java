@@ -21,6 +21,14 @@ public class UseNoticeVo {
 	 */
 	private String id;
 	/**
+	 * 小区编号
+	 */
+	private String communityId;
+	/**
+	 * 小区名称
+	 */
+	private String communityName;
+	/**
 	 * 标题
 	 */
 	private String title;
@@ -44,6 +52,31 @@ public class UseNoticeVo {
 	 * 状态
 	 */
 	private String state;
+	
+	/**
+	 * @return the communityName
+	 */
+	public String getCommunityName() {
+		return communityName;
+	}
+	/**
+	 * @param communityName the communityName to set
+	 */
+	public void setCommunityName(String communityName) {
+		this.communityName = communityName;
+	}
+	/**
+	 * @return the communityId
+	 */
+	public String getCommunityId() {
+		return communityId;
+	}
+	/**
+	 * @param communityId the communityId to set
+	 */
+	public void setCommunityId(String communityId) {
+		this.communityId = communityId;
+	}
 	/**
 	 * @return the id
 	 */

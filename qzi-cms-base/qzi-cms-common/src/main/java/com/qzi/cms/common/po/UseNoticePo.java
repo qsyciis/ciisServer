@@ -26,6 +26,10 @@ public class UseNoticePo {
 	@Id
 	private String id;
 	/**
+	 * 小区编号
+	 */
+	private String communityId;
+	/**
 	 * 标题
 	 */
 	private String title;
@@ -49,6 +53,19 @@ public class UseNoticePo {
 	 * 状态
 	 */
 	private String state;
+	
+	/**
+	 * @return the communityId
+	 */
+	public String getCommunityId() {
+		return communityId;
+	}
+	/**
+	 * @param communityId the communityId to set
+	 */
+	public void setCommunityId(String communityId) {
+		this.communityId = communityId;
+	}
 	/**
 	 * @return the id
 	 */
