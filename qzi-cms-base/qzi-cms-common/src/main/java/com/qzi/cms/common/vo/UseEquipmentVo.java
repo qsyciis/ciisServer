@@ -73,6 +73,23 @@ public class UseEquipmentVo {
 	 */
 	private String state;
 	/**
+	 * 是否常用
+	 */
+	private boolean oftenUse;
+	
+	/**
+	 * @return the oftenUse
+	 */
+	public boolean isOftenUse() {
+		return oftenUse;
+	}
+	/**
+	 * @param oftenUse the oftenUse to set
+	 */
+	public void setOftenUse(boolean oftenUse) {
+		this.oftenUse = oftenUse;
+	}
+	/**
 	 * @return the communityName
 	 */
 	public String getCommunityName() {

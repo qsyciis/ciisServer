@@ -58,4 +58,18 @@ public interface UseEquipmentMapper extends BaseMapper<UseEquipmentPo>{
 	@Select("SELECT MAX(equipmentId) from use_equipment where communityId=#{cid} and equipmentType=#{etype} and buildingId=#{bid} and unitName=#{uno}")
 	public String findByExample(@Param("cid") String communityId,@Param("etype") String equipmentType,@Param("bid") String buildingId,@Param("uno") int unitName);
 
+	/**
+	 * @param id
+	 * @return
+	 */
+	@Select("SELECT equ.*,uce.residentId is not NULL oftenUse from ("
+			+"SELECT eu.* from use_community_resident ucr,use_equipment eu " 
+			+"where ucr.communityId = eu.communityId and (eu.equipmentType='10' OR eu.equipmentType='20') " 
+			+"and eu.state = '10' and ucr.residentId=#{rid} "
+			+"UNION "
+			+"SELECT ue.* from use_equipment ue INNER JOIN (SELECT ur.*,urr.communityId,urr.residentId from use_room ur,use_resident_room urr where ur.id = urr.roomId) ur "
+			+"on ue.communityId = ur.communityId and ue.buildingId = ur.buildingId and ue.unitName = ur.unitName and ur.residentId=#{rid} "
+			+") equ LEFT JOIN use_common_equipment uce on uce.equipmentId=equ.equipmentId and uce.residentId=#{rid}")
+	public List<UseEquipmentVo> findMonitorList(@Param("rid") String residentId);
+
 }

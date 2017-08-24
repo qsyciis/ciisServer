@@ -59,4 +59,21 @@ public interface UseMessageMapper extends BaseMapper<UseMessagePo>{
 	@Select("select count(1) from use_resident_message where residentId=#{rid} and state='10'")
 	public long findMsgCount(@Param("rid") String residentId);
 
+	/**
+	 * @param rwoBounds
+	 * @param id
+	 * @return
+	 */
+	@Select("SELECT urm.id,um.* from use_resident_message urm,use_message um "
+			+ "where um.id = urm.messageId and urm.residentId=#{rid} "
+			+ "ORDER BY urm.state ASC,um.createTime desc")
+	public List<UseMessageVo> findAllByApp(RowBounds rwoBounds,@Param("rid") String residentId);
+
+	/**
+	 * @param id
+	 * @return
+	 */
+	@Select("SELECT count(1) from use_resident_message where residentId=#{rid} ")
+	public long findCountByApp(@Param("rid") String residentId);
+
 }
