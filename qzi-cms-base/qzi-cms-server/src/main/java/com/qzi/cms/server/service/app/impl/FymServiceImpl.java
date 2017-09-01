@@ -60,4 +60,14 @@ public class FymServiceImpl implements FymService {
 		}
 	}
 
+	@Override
+	public void updateOpenPwd(UpdatePwVo updatePwVo) throws Exception {
+		//住户对象
+		UseResidentVo residentVo = commonServcie.findResident();
+		//数据库查找住户对象
+		UseResidentPo residentPo = residentMapper.selectByPrimaryKey(residentVo.getId());
+		residentPo.setOpenPwd(updatePwVo.getNewPw());
+		residentMapper.updateByPrimaryKey(residentPo);
+	}
+
 }

@@ -23,12 +23,20 @@ public class AppTest {
 	
 	@Test
 	public void test(){
-		String salt = UUID.randomUUID().toString().replaceAll("-","");
-		String loginPw = CryptUtils.hmacSHA1Encrypt("1q2w3e", salt);
-		System.out.println(salt);
-		System.out.println(loginPw+"="+loginPw.length());
-		System.out.println(String.format("%012d单元",2000001));
-		System.out.println(ToolUtils.isMobile("13578978955"));
+//		String salt = UUID.randomUUID().toString().replaceAll("-","");
+//		String loginPw = CryptUtils.hmacSHA1Encrypt("1q2w3e", salt);
+//		System.out.println(salt);
+//		System.out.println(loginPw+"="+loginPw.length());
+//		System.out.println(String.format("%012d单元",2000001));
+//		System.out.println(ToolUtils.isMobile("13578978955"));
+//		String  temp = "000003080101";
+//		System.out.println(temp.substring(0, 10)+String.format("%04d单元",101));
+		String a = "eyJBbGciOiJIUzI1NiIsIkFjY2lkIjoiNGU3MjA0OWI2M2Y5YTE5ZmU3OWIxNTg1YTI4Y2FmODciLCJBcHBpZCI6Ijk5NzUxN2UxMjI5MTQzYzU5NzJjZTEyYzYyZDRiYzkxIiwiVXNlcmlkIjoiMTM2MjcyNDUwNTUifQ==.3XwgMuypaYE+dfU9SnuLCBUp9Qf5DBudwdxNa1AuJF8=";
+		System.out.println(a.length());
+				
+		for(int i=1;i<20;i++){
+			System.out.println(ToolUtils.getUUID());
+		}
 	}
 	
 	@Test
@@ -92,7 +100,7 @@ public class AppTest {
 		
 		ClientVo clientVo = new ClientVo();
 		clientVo.setAppId(strAppId);
-		clientVo.setUserId("20001");
+		clientVo.setUserId("13800138000");
 		String param = "{\"client\":"+ToolUtils.toJson(clientVo)+"}";
 		System.out.println(param);
 		String auth= CryptUtils.base64Encoder(strAccountId+":"+timestamp);

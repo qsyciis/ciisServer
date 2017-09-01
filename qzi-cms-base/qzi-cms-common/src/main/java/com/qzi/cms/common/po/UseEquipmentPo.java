@@ -58,6 +58,10 @@ public class UseEquipmentPo {
 	 */
 	private String clientPwd;
 	/**
+	 * 云之讯token
+	 */
+	private String loginToken;
+	/**
 	 * 创建时间
 	 */
 	private Date createTime;
@@ -69,6 +73,19 @@ public class UseEquipmentPo {
 	 * 状态
 	 */
 	private String state;
+	
+	/**
+	 * @return the loginToken
+	 */
+	public String getLoginToken() {
+		return loginToken;
+	}
+	/**
+	 * @param loginToken the loginToken to set
+	 */
+	public void setLoginToken(String loginToken) {
+		this.loginToken = loginToken;
+	}
 	/**
 	 * @return the id
 	 */

@@ -115,6 +115,7 @@ public class EquipmentServiceImpl implements EquipmentService {
 		if(clientResp.getResp().getRespCode().equals("000000")){
 			equipmentPo.setClientNumber(clientResp.getResp().getClient().getClientNumber());
 			equipmentPo.setClientPwd(clientResp.getResp().getClient().getClientPwd());
+			equipmentPo.setLoginToken(clientResp.getResp().getClient().getLoginToken());
 			equipmentMapper.updateByPrimaryKey(equipmentPo);
 		}else{
 			throw new CommException("注册Client账号失败["+clientResp.getResp().getRespCode()+"]");

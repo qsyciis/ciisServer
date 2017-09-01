@@ -49,7 +49,7 @@ public class MonitoringServiceImpl implements MonitoringService{
 		ucepo.setEquipmentId(equipmentVo.getId());
 		ucepo.setResidentId(residentVo.getId());
 		if(equipmentVo.isOftenUse()){
-			//新增
+			commonEquiMapper.delete(ucepo);
 			commonEquiMapper.insert(ucepo);
 		}else{
 			//删除

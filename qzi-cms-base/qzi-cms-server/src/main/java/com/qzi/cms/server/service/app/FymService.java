@@ -24,4 +24,10 @@ public interface FymService {
 	 */
 	public void updatePwd(UpdatePwVo updatePwVo) throws Exception;
 
+	/**
+	 * @param updatePwVo
+	 * @throws Exception 
+	 */
+	public void updateOpenPwd(UpdatePwVo updatePwVo) throws Exception;
+
 }

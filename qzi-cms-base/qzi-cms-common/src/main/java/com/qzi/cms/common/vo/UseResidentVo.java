@@ -49,6 +49,10 @@ public class UseResidentVo {
 	 */
 	private String clientPwd;
 	/**
+	 * 第三方token
+	 */
+	private String loginToken;
+	/**
 	 * 开门密码
 	 */
 	private String openPwd;
@@ -65,6 +69,18 @@ public class UseResidentVo {
 	 */
 	private String smsCode;
 	
+	/**
+	 * @return the loginToken
+	 */
+	public String getLoginToken() {
+		return loginToken;
+	}
+	/**
+	 * @param loginToken the loginToken to set
+	 */
+	public void setLoginToken(String loginToken) {
+		this.loginToken = loginToken;
+	}
 	/**
 	 * @return the smsCode
 	 */

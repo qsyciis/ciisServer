@@ -79,6 +79,7 @@ public class NewResidentServiceImpl implements NewResidentService {
 		if(clientResp.getResp().getRespCode().equals("000000")){
 			residentPo.setClientNumber(clientResp.getResp().getClient().getClientNumber());
 			residentPo.setClientPwd(clientResp.getResp().getClient().getClientPwd());
+			residentPo.setLoginToken(clientResp.getResp().getClient().getLoginToken());
 			residentMapper.updateByPrimaryKey(residentPo);
 		}else{
 			throw new CommException("注册Client账号失败["+clientResp.getResp().getRespCode()+"]");

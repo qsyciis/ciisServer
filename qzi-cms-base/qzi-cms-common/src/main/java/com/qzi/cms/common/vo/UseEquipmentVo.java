@@ -57,6 +57,10 @@ public class UseEquipmentVo {
 	 */
 	private String clientNumber;
 	/**
+	 * 云之讯loginToken
+	 */
+	private String loginToken;
+	/**
 	 * 云之讯密码
 	 */
 	private String clientPwd;
@@ -77,6 +81,18 @@ public class UseEquipmentVo {
 	 */
 	private boolean oftenUse;
 	
+	/**
+	 * @return the loginToken
+	 */
+	public String getLoginToken() {
+		return loginToken;
+	}
+	/**
+	 * @param loginToken the loginToken to set
+	 */
+	public void setLoginToken(String loginToken) {
+		this.loginToken = loginToken;
+	}
 	/**
 	 * @return the oftenUse
 	 */

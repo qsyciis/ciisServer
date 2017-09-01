@@ -24,7 +24,6 @@ import com.qzi.cms.common.po.UseResidentRoomPo;
 import com.qzi.cms.common.resp.Paging;
 import com.qzi.cms.common.util.YBBeanUtils;
 import com.qzi.cms.common.util.YzsClientUtils;
-import com.qzi.cms.common.vo.ClientVo;
 import com.qzi.cms.common.vo.OptionVo;
 import com.qzi.cms.common.vo.SysUserVo;
 import com.qzi.cms.common.vo.TreeVo;
@@ -154,9 +153,9 @@ public class ResidentServiceImpl implements ResidentService {
 	@Transactional(rollbackFor=Exception.class)
 	public void delete(UseResidentVo residentVo) throws Exception {
 		//注销云之讯账户
-		ClientVo client = new ClientVo();
-		client.setUserId(residentVo.getMobile());
-		clientUtils.deleteClient(client);
+//		ClientVo client = new ClientVo();
+//		client.setUserId(residentVo.getMobile());
+//		clientUtils.deleteClient(client);
 		//删除住户房间关系
 		residentRoomMapper.deleteByCriteria(residentVo.getId(),residentVo.getCommunityId());
 		//删除住户小区关系

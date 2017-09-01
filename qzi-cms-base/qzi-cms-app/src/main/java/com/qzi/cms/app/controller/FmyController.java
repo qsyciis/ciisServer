@@ -56,6 +56,25 @@ public class FmyController {
 		return respBody;
 	}
 	
+	@PostMapping("/updateOpenPwd")
+	@SystemControllerLog(description="设置开门密码")
+	public RespBody updateOpenPwd(@RequestBody UpdatePwVo updatePwVo) {
+		// 创建返回对象
+		RespBody respBody = new RespBody();
+		try {
+			if(StringUtils.isEmpty(updatePwVo.getNewPw())){
+				respBody.add(RespCodeEnum.ERROR.getCode(), "密码不能为空");
+				return respBody;
+			}
+			fmyServcie.updateOpenPwd(updatePwVo);
+			respBody.add(RespCodeEnum.SUCCESS.getCode(),"修改密码成功");
+		} catch (Exception ex) {
+			respBody.add(RespCodeEnum.ERROR.getCode(), "找回密码失败");
+			LogUtils.error("找回密码失败！",ex);
+		}
+		return respBody;
+	}
+	
 	/**
 	 * 修改密码数据验证
 	 * @param updatePwVo 修改密码对象

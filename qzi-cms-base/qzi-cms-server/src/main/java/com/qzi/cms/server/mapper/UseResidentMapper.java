@@ -14,6 +14,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.session.RowBounds;
 
 import com.qzi.cms.common.po.UseResidentPo;
+import com.qzi.cms.common.vo.CallVo;
 import com.qzi.cms.common.vo.UseMessageVo;
 import com.qzi.cms.common.vo.UseResidentVo;
 import com.qzi.cms.server.base.BaseMapper;
@@ -90,5 +91,14 @@ public interface UseResidentMapper  extends BaseMapper<UseResidentPo>{
 	 */
 	@Select("update use_resident set password=#{password},salt=#{salt} where mobile=#{mobile}")
 	public void updatePwd(@Param("mobile") String mobile,@Param("password") String password,@Param("salt") String salt);
+
+
+	/**
+	 * 查找房间对应的用户
+	 * @param roomId 房间编号
+	 * @return 用户集合
+	 */
+	@Select("SELECT ur.mobile,ur.`name`,urr.`owner`,ur.openPwd from use_resident ur,use_resident_room urr,use_room uro where ur.id = urr.residentId and uro.id = urr.roomId and uro.roomNo=#{roomId}")
+	public List<CallVo> findCall(@Param("roomId") String roomId);
 
 }

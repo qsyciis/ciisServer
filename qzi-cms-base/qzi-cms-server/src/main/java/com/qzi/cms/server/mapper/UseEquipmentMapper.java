@@ -69,7 +69,40 @@ public interface UseEquipmentMapper extends BaseMapper<UseEquipmentPo>{
 			+"UNION "
 			+"SELECT ue.* from use_equipment ue INNER JOIN (SELECT ur.*,urr.communityId,urr.residentId from use_room ur,use_resident_room urr where ur.id = urr.roomId) ur "
 			+"on ue.communityId = ur.communityId and ue.buildingId = ur.buildingId and ue.unitName = ur.unitName and ur.residentId=#{rid} "
-			+") equ LEFT JOIN use_common_equipment uce on uce.equipmentId=equ.equipmentId and uce.residentId=#{rid}")
+			+") equ LEFT JOIN use_common_equipment uce on uce.equipmentId=equ.id and uce.residentId=#{rid}")
 	public List<UseEquipmentVo> findMonitorList(@Param("rid") String residentId);
+
+	/**
+	 * 查找设备列表
+	 * @param communityNo 小区编号
+	 * @param equipmentType 设备类型
+	 * @return 集合
+	 */
+	@Select("SELECT * from use_equipment where communityId=#{cno} and equipmentType=#{etype}")
+	public List<UseEquipmentVo> findEquipments(@Param("cno")String communityNo,@Param("etype") String equipmentType);
+
+	/**
+	 * @param communityNo 小区编号
+	 * @return 集合
+	 */
+	@Select("SELECT * from use_equipment where communityId=#{cno}")
+	public List<UseEquipmentVo> findAllEquipments(@Param("cno")String communityNo);
+
+	/**
+	 * 查找设备信息
+	 * @param equipmentId 设备编号
+	 * @return 设备信息
+	 */
+	@Select("SELECT * from use_equipment where equipmentId=#{equipmentId}")
+	public UseEquipmentVo findEquipmentInfo(@Param("equipmentId") String equipmentId);
+
+	/**
+	 * 查询用户管理机
+	 * @param id
+	 * @return
+	 */
+	@Select("SELECT DISTINCT ue.* from use_community_resident ucr,use_equipment ue "
+			+ "where ucr.communityId = ue.communityId and ue.equipmentType='10' and ucr.residentId=#{rid}")
+	public List<UseEquipmentVo> findMgrMachines(@Param("rid") String residentId);
 
 }

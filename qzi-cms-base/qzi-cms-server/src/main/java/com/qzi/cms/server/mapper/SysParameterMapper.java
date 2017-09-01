@@ -9,6 +9,7 @@ package com.qzi.cms.server.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.session.RowBounds;
 
@@ -36,5 +37,13 @@ public interface SysParameterMapper extends BaseMapper<SysParameterPo>{
 	 */
 	@Select("select count(1) from sys_parameter")
 	public long findCount();
+
+	/**
+	 * 查找参数值
+	 * @param paramName 参数名
+	 * @return 参数值
+	 */
+	@Select("SELECT paraValue from sys_parameter where paraName=#{paramName};")
+	public String findParam(@Param("paramName") String paramName);
 
 }

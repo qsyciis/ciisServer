@@ -34,7 +34,6 @@ public class CommonController {
 	
 	
 	@GetMapping("/findUser")
-	@SystemControllerLog(description="获取用户信息")
 	public RespBody findUser() {
 		// 创建返回对象
 		RespBody respBody = new RespBody();
@@ -68,7 +67,23 @@ public class CommonController {
 		return respBody;
 	}
 	
-	
+	/**
+	 * 获取用户参数
+	 * @param paramName 参数名
+	 * @return 参数值
+	 */
+	@GetMapping("/findParam")
+	public RespBody findParam(String paramName) {
+		// 创建返回对象
+		RespBody respBody = new RespBody();
+		try {
+			respBody.add(RespCodeEnum.SUCCESS.getCode(),"获取用户信息成功",commonServcie.findParam(paramName));
+		} catch (Exception ex) {
+			respBody.add(RespCodeEnum.ERROR.getCode(), "获取用户信息失败");
+			LogUtils.error("获取用户信息失败！",ex);
+		}
+		return respBody;
+	}
 	
 	
 

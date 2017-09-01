@@ -55,6 +55,10 @@ public class UseResidentPo implements Serializable{
 	 */
 	private String clientPwd;
 	/**
+	 * 第三方token
+	 */
+	private String loginToken;
+	/**
 	 * 开门密码
 	 */
 	private String openPwd;
@@ -62,6 +66,19 @@ public class UseResidentPo implements Serializable{
 	 * 创建时间
 	 */
 	private Date createTime;
+	
+	/**
+	 * @return the loginToken
+	 */
+	public String getLoginToken() {
+		return loginToken;
+	}
+	/**
+	 * @param loginToken the loginToken to set
+	 */
+	public void setLoginToken(String loginToken) {
+		this.loginToken = loginToken;
+	}
 	/**
 	 * @return the createTime
 	 */

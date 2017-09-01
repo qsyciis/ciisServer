@@ -38,5 +38,12 @@ public interface CommonService {
 	 * @throws Exception 
 	 */
 	public void sendSms(String mobile) throws Exception;
+
+	/**
+	 * 查找参数
+	 * @param paramName 参数名
+	 * @return 参数值
+	 */
+	public String findParam(String paramName);
 	
 }

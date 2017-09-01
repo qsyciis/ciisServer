@@ -26,6 +26,7 @@ import com.qzi.cms.common.util.YzsClientUtils;
 import com.qzi.cms.common.vo.SysUserVo;
 import com.qzi.cms.common.vo.UseResidentVo;
 import com.qzi.cms.common.vo.YzxSmsRespVo;
+import com.qzi.cms.server.mapper.SysParameterMapper;
 import com.qzi.cms.server.service.common.CommonService;
 import com.qzi.cms.server.service.web.UserService;
 
@@ -45,6 +46,8 @@ public class CommonServiceImpl implements CommonService {
 	private RedisService redisService;
 	@Resource
 	private YzsClientUtils yzxUtils;
+	@Resource
+	private SysParameterMapper paramMapper;
 
 	@Override
 	public SysUserVo findUser() throws Exception {
@@ -95,6 +98,11 @@ public class CommonServiceImpl implements CommonService {
 			// 缓存用户信息失败
 			throw new CommException("缓存手机验证码失败！");
 		}
+	}
+
+	@Override
+	public String findParam(String paramName) {
+		return paramMapper.findParam(paramName);
 	}
 	
 	
