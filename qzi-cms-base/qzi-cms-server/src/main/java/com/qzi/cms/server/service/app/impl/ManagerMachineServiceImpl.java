@@ -66,7 +66,7 @@ public class ManagerMachineServiceImpl implements ManagerMachineService {
 
 	@Override
 	public List<CallVo> call(String equipmentId, String houseId) {
-		String roomId = equipmentId.substring(0, 10)+String.format("%04d",houseId);
+		String roomId = equipmentId.substring(0, 10)+houseId;
 		return residentMapper.findCall(roomId);
 	}
 

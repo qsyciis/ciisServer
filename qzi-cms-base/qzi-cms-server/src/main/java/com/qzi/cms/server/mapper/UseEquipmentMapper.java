@@ -78,14 +78,14 @@ public interface UseEquipmentMapper extends BaseMapper<UseEquipmentPo>{
 	 * @param equipmentType 设备类型
 	 * @return 集合
 	 */
-	@Select("SELECT * from use_equipment where communityId=#{cno} and equipmentType=#{etype}")
+	@Select("SELECT ue.* from use_equipment ue,use_community uc where uc.id = ue.communityId and uc.communityNo=#{cno} and ue.equipmentType=#{etype}")
 	public List<UseEquipmentVo> findEquipments(@Param("cno")String communityNo,@Param("etype") String equipmentType);
 
 	/**
 	 * @param communityNo 小区编号
 	 * @return 集合
 	 */
-	@Select("SELECT * from use_equipment where communityId=#{cno}")
+	@Select("SELECT ue.* from use_equipment ue,use_community uc where uc.id = ue.communityId and uc.communityNo=#{cno}")
 	public List<UseEquipmentVo> findAllEquipments(@Param("cno")String communityNo);
 
 	/**
