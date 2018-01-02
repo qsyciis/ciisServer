@@ -115,6 +115,24 @@ public class ManagerMachineController {
 		return respBody;
 	}
 	
+	/**
+	 * 获取手机号对应的房号
+	 * @param equipmentId 设备编号
+	 * @return 响应数据
+	 */
+	@GetMapping("/findRooms")
+	public RespBody findRooms(String mobile){
+		RespBody respBody = new RespBody();
+		try {
+			//保存返回数据
+			respBody.add(RespCodeEnum.SUCCESS.getCode(), "获取房间号成功", mgrMachineService.findRooms(mobile));
+		} catch (Exception ex) {
+			respBody.add(RespCodeEnum.ERROR.getCode(), "获取房间号失败");
+			LogUtils.error("获取房间号失败！",ex);
+		}
+		return respBody;
+	}
+	
 	@PostMapping("/addAlarmRecord")
 	@SystemControllerLog(description="新增报警记录")
 	public RespBody addAlarmRecord(@RequestBody UseAlarmRecordVo alarmRecordVo){
