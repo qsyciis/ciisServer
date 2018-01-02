@@ -59,4 +59,13 @@ public interface UseRoomMapper extends BaseMapper<UseRoomPo>{
 			+ "where ur.buildingId = ub.id and urr.roomId= ur.id and urr.residentId=#{rid} and urr.communityId=#{cid}")
 	public List<UseRoomVo> findResidentRooms(@Param("rid") String residentId,@Param("cid") String communityId);
 
+	/**
+	 * 查找门口机对应的房间号
+	 * @param id 住户编号
+	 * @param equipmentId 门口机编号
+	 * @return 集合
+	 */
+	@Select("SELECT uro.roomName from use_resident_room urr,use_room uro where urr.roomId = uro.id and urr.residentId=#{rid} and roomNo LIKE CONCAT(#{eid},'%') and uro.state='10'")
+	public List<String> findEquRooms(@Param("rid") String residentId,@Param("eid") String equipmentId);
+
 }

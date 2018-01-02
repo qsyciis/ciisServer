@@ -12,6 +12,7 @@ import java.util.List;
 import com.qzi.cms.common.vo.CallVo;
 import com.qzi.cms.common.vo.UseAlarmRecordVo;
 import com.qzi.cms.common.vo.UseEquipmentVo;
+import com.qzi.cms.common.vo.UseRoomVo;
 
 /**
  * 管理机业务层接口
@@ -59,5 +60,12 @@ public interface ManagerMachineService {
 	 * @return 是否正确
 	 */
 	public boolean validOpenPwd(String equipmentId, String houseId, String openPwd);
+
+	/**
+	 * 输入手机号获取对应的房间信息
+	 * @param mobile 手机号
+	 * @return 房间信息
+	 */
+	public List<UseRoomVo> findRooms(String mobile);
 
 }

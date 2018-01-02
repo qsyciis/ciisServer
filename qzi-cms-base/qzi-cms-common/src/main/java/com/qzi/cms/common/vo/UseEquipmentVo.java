@@ -8,6 +8,7 @@
 package com.qzi.cms.common.vo;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 设备Vo类
@@ -80,7 +81,23 @@ public class UseEquipmentVo {
 	 * 是否常用
 	 */
 	private boolean oftenUse;
+	/**
+	 * 房间号
+	 */
+	private List<String> rooms;
 	
+	/**
+	 * @return the rooms
+	 */
+	public List<String> getRooms() {
+		return rooms;
+	}
+	/**
+	 * @param rooms the rooms to set
+	 */
+	public void setRooms(List<String> rooms) {
+		this.rooms = rooms;
+	}
 	/**
 	 * @return the loginToken
 	 */

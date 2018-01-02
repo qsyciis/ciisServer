@@ -17,6 +17,7 @@ import com.qzi.cms.common.po.UseResidentPo;
 import com.qzi.cms.common.vo.CallVo;
 import com.qzi.cms.common.vo.UseMessageVo;
 import com.qzi.cms.common.vo.UseResidentVo;
+import com.qzi.cms.common.vo.UseRoomVo;
 import com.qzi.cms.server.base.BaseMapper;
 
 /**
@@ -100,5 +101,14 @@ public interface UseResidentMapper  extends BaseMapper<UseResidentPo>{
 	 */
 	@Select("SELECT ur.mobile,ur.`name`,urr.`owner`,ur.openPwd from use_resident ur,use_resident_room urr,use_room uro where ur.id = urr.residentId and uro.id = urr.roomId and uro.roomNo=#{roomId}")
 	public List<CallVo> findCall(@Param("roomId") String roomId);
+
+
+	/**
+	 * 根据手机号查询对应的房间信息
+	 * @param mobile 手机号
+	 * @return 房间集合
+	 */
+	@Select("SELECT uro.* from use_resident ure,use_room uro,use_resident_room urr WHERE ure.id=urr.residentId and urr.roomId=uro.id and ure.mobile=#{mobile}")
+	public List<UseRoomVo> findRooms(@Param("mobile") String mobile);
 
 }

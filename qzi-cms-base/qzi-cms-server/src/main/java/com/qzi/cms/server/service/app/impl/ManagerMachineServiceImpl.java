@@ -21,6 +21,7 @@ import com.qzi.cms.common.util.YBBeanUtils;
 import com.qzi.cms.common.vo.CallVo;
 import com.qzi.cms.common.vo.UseAlarmRecordVo;
 import com.qzi.cms.common.vo.UseEquipmentVo;
+import com.qzi.cms.common.vo.UseRoomVo;
 import com.qzi.cms.server.mapper.UseAlarmRecordMapper;
 import com.qzi.cms.server.mapper.UseEquipmentMapper;
 import com.qzi.cms.server.mapper.UseResidentMapper;
@@ -80,6 +81,11 @@ public class ManagerMachineServiceImpl implements ManagerMachineService {
 			}
 		}
 		return false;
+	}
+	
+	@Override
+	public List<UseRoomVo> findRooms(String mobile) {
+		return residentMapper.findRooms(mobile);
 	}
 
 }

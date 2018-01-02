@@ -32,7 +32,21 @@ public class YzxSmsRespVo {
 	public static class RespVo{
 		private String respCode;
 		private TemplateSMS templateSMS;
-		
+		private String failure;
+		/**
+		 * @return the failure
+		 */
+		public String getFailure() {
+			return failure;
+		}
+
+		/**
+		 * @param failure the failure to set
+		 */
+		public void setFailure(String failure) {
+			this.failure = failure;
+		}
+
 		public static class TemplateSMS{
 			private String createDate;
 			private String smsId;
