@@ -88,4 +88,9 @@ public class ManagerMachineServiceImpl implements ManagerMachineService {
 		return residentMapper.findRooms(mobile);
 	}
 
+	@Override
+	public UseRoomVo findRoomById(String roomId) {
+		return residentMapper.findRoomById(roomId);
+	}
+
 }

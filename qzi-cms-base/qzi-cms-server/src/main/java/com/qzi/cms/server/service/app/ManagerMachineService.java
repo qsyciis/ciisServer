@@ -68,4 +68,11 @@ public interface ManagerMachineService {
 	 */
 	public List<UseRoomVo> findRooms(String mobile);
 
+	/**
+	 * 输入房间编号获取对应信息
+	 * @param roomId 房间编号
+	 * @return 房间信息
+	 */
+	public UseRoomVo findRoomById(String roomId);
+
 }

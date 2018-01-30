@@ -111,4 +111,13 @@ public interface UseResidentMapper  extends BaseMapper<UseResidentPo>{
 	@Select("SELECT uro.* from use_resident ure,use_room uro,use_resident_room urr WHERE ure.id=urr.residentId and urr.roomId=uro.id and ure.mobile=#{mobile}")
 	public List<UseRoomVo> findRooms(@Param("mobile") String mobile);
 
+
+	/**
+	 * 根据房间编号获取房间信息
+	 * @param roomId
+	 * @return
+	 */
+	@Select("select * from use_room where roomNo=#{roomId}")
+	public UseRoomVo findRoomById(@Param("roomId") String roomId);
+
 }

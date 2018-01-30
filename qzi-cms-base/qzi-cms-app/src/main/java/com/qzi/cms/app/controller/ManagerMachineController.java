@@ -153,4 +153,22 @@ public class ManagerMachineController {
 		return respBody;
 	}
 	
+	/**
+	 * 获取房间对应信息
+	 * @param roomId 房间编号
+	 * @return 响应数据
+	 */
+	@GetMapping("/findRoomById")
+	public RespBody findRoomById(String roomId){
+		RespBody respBody = new RespBody();
+		try {
+			//保存返回数据
+			respBody.add(RespCodeEnum.SUCCESS.getCode(), "获取房间号成功", mgrMachineService.findRoomById(roomId));
+		} catch (Exception ex) {
+			respBody.add(RespCodeEnum.ERROR.getCode(), "获取房间号失败");
+			LogUtils.error("获取房间号失败！",ex);
+		}
+		return respBody;
+	}
+	
 }
